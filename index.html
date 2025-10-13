@@ -18,6 +18,7 @@
     html,body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#f6f8fa;line-height:1.65;scroll-behavior:smooth}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
+
     /* HEADER */
     header{background:var(--bg);color:#fff;padding:56px 18px 28px}
     .container{max-width:1000px;margin:0 auto;padding:0 18px}
@@ -25,12 +26,14 @@
     .tag{margin:8px 0 0;color:#cfe0ec}
     .contact{margin-top:10px;color:#cfe0ec}
     .contact a{color:#ffd978}
+
     /* NAV */
     nav{position:sticky;top:0;z-index:50;background:#0f2537f2;backdrop-filter:blur(2px);border-bottom:1px solid #0b1b28}
     .navwrap{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center;padding:8px}
     .navwrap a{color:#d9e6f0;padding:8px 12px;border-radius:10px;display:inline-flex;gap:8px;align-items:center}
     .navwrap a:hover{background:#102a3f}
     .navwrap a.active{background:#c9a227;color:#0f2537}
+
     /* MAIN + SECTIONS */
     main{padding:18px 0}
     .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:26px;margin:26px auto}
@@ -39,13 +42,25 @@
     .item:last-child{border-bottom:0}
     ul.plain{list-style:none;padding:0;margin:8px 0 0}
     ul.plain li{margin:6px 0}
-    .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:#fff}
+    .pill{display:inline-block;border:1px solid #ffe99a;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:#fff3cc;color:#0f2537;font-weight:500;transition:background .2s,transform .1s}.pill:hover{background:#ffe99a;transform:translateY(-1px)}
     .toolbar{display:flex;justify-content:flex-end}
     .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer}
     .btn:hover{background:#fafafa}
+
+    /* Tarjetas individuales de experiencia */
+    .job-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:18px 18px 14px;margin:18px 0}
+    .job-head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+    .job-title{font-weight:700}
+    .job-sub{color:var(--muted)}
+    .job-when{color:var(--muted);white-space:nowrap}
+    .job-logo{height:64px;max-width:140px;object-fit:contain}
+    .job-card ul{margin:8px 0 0;padding-left:18px}
+    .job-card hr{border:none;border-top:1px dashed var(--line);margin:12px 0}
+
     /* Mostrar/ocultar con JS (sin JS se ven todas) */
     section[data-section]{display:block}
     section[data-section][hidden]{display:none}
+
     /* FOOTER */
     footer{padding:24px 18px;text-align:center;color:var(--muted)}
     @media (max-width:720px){
@@ -64,10 +79,7 @@
     <div class="container hero">
       <h1>Carmen Fernández Arrebola</h1>
       <p class="tag">Ciberseguridad · Gestión de Vulnerabilidades · Seguridad Perimetral · Automatización</p>
-      <p class="contact">Sevilla (España) · Tel. +34 616 186 786 ·
-        <a href="mailto:mfern019@gmail.com">mfern019@gmail.com</a> ·
         <a href="https://www.linkedin.com/in/carmen-fernandez-763942167/" target="_blank" rel="noopener">LinkedIn</a>
-      </p>
     </div>
   </header>
 
@@ -96,102 +108,216 @@
       </p>
     </section>
 
-    <!-- VIDA LABORAL -->
-    <section id="experiencia" data-section class="card">
-      <h2>Vida laboral</h2>
+<!-- VIDA LABORAL -->
+<section id="experiencia" data-section class="section">
+  <h2>Vida laboral</h2>
 
-      <!-- SERVINFORM -->
-      <div class="item">
-        <div class="role"><strong>(Noviembre 2024 – Actualidad) — SERVINFORM S.A.</strong> · Vulnerability Management</div>
-        <p><strong>Objetivos conseguidos:</strong> Diseño, implantación y consolidación del sistema corporativo de gestión de vulnerabilidades, con infraestructura distribuida on-prem y cloud, automatización completa del ciclo y reducción &gt;70% en tiempos de detección, análisis y remediación. Integración ENS e ISO&nbsp;27001 y reporting ejecutivo con trazabilidad total.</p>
-        <p><strong>Labores:</strong></p>
-        <ul class="plain">
-          <li>Implantación y configuración desde cero de la infraestructura de VM con sondas distribuidas e integración con entornos corporativos.</li>
-          <li>Administración avanzada de OpenVAS/Greenbone (GVMD, GSA, OSPD): targets, políticas, scheduling, resolución de incidencias (feeds, certificados, rendimiento).</li>
-          <li>Correlación de vulnerabilidades vía APIs combinando datos de CrowdStrike y OpenVAS para priorización por CVSS, contexto y exposición real. </li>
-          <li>Automatización en Python/Bash (descarga masiva, normalización XML/CSV/JSON, generación de reportes técnicos/ejecutivos).</li>
-          <li>Integración bidireccional con Redmine (SLA, ENS, ISO&nbsp;27001).</li>
-          <li>Análisis y priorización por criticidad y exposición (Falcon). Troubleshooting en PostgreSQL, gvmd/ospd, sondas y red.</li>
-        </ul>
+  <!-- SERVINFORM -->
+  <article class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">(Noviembre 2024 – Actualidad) — SERVINFORM S.A.</div>
+        <div class="job-sub">Vulnerability Management. Gestión integral del ciclo de vida de vulnerabilidades en entornos corporativos, utilizando OpenVAS/Greenbone como herramienta principal.</div>
       </div>
+      <!-- Logo -->
+      <!-- <img src="assets/servinform.png" alt="Servinform" class="job-logo"> -->
+      <div class="job-when"></div>
+    </div>
 
-      <!-- WESTCON -->
-      <div class="item">
-        <div class="role"><strong>(Abril 2023 – Noviembre 2024) — WESTCON EUROPE</strong> · Analista de Seguridad Perimetral (Oficina técnica NIAE) — SSPA (SAS)</div>
-        <p><strong>Objetivos conseguidos:</strong> Optimización de la seguridad perimetral y del balanceo de servicios críticos del SSPA mediante administración avanzada de Check Point (frontera Internet), Palo Alto (firewall interno), F5 Big-IP (LTM/GTM/APM), F5 Distributed Cloud, Symantec Bluecoat, Netskope y Arcsight. Las mejoras en políticas, BGP, PBF, NAT y rutas permitieron un funcionamiento más óptimo y adaptado a las necesidades operativas del SAS. Liderazgo de la migración masiva de publicaciones del SAS a la nube de F5 tras el fin de licencias de Bluecoat, configurando iRules y políticas personalizadas para resolver visualización, redirecciones HTTP/HTTPS, tratamiento de cabeceras y bloqueos en navegadores, garantizando continuidad y correcta visualización de los portales.</p>
-        <p><strong>Labores:</strong></p>
-        <ul class="plain">
-          <li><strong>SASE:</strong> Netskope · <strong>Proxy:</strong> Symantec Bluecoat · <strong>Firewalls:</strong> Check Point, Palo Alto, Fortinet · <strong>Balanceador/DNS:</strong> F5 Big-IP (GTM/LTM) · <strong>VPN-SSL:</strong> F5 Big-IP (APM).</li>
-          <li>F5 Distributed Cloud y Big-IP: balanceo y publicación (reverse proxy) para dominios del SAS/SSPA; iRules para control de tráfico, cabeceras y redirecciones; pruebas e integración de APIs con Postman.</li>
-          <li>SIEM: Arcsight · Inteligencia de red: ALLOT · Gestión de caudales, control de acceso, logs y sandboxing; soporte especializado, escalado a fabricante e informes técnicos. </li>
-        </ul>
-      </div>
+    <p><strong>Objetivos conseguidos:</strong> Diseño, implantación y consolidación del sistema corporativo de gestión de vulnerabilidades, con infraestructura distribuida on-prem y cloud, automatización completa del ciclo y reducción &gt;70% en tiempos de detección, análisis y remediación. Integración ENS e ISO 27001 y reporting ejecutivo con trazabilidad total.</p>
 
-      <!-- ADMIRAL -->
-      <div class="item">
-        <div class="role"><strong>(Noviembre 2021 – Abril 2023) — EUIGS (ADMIRAL SEGUROS)</strong> · SOC Analyst</div>
-        <p><strong>Objetivos conseguidos:</strong> Ejecución de <strong>TSR</strong> (revisiones técnicas de seguridad) sobre nuevos proyectos en AWS y on-prem, evaluando infraestructuras, aplicaciones y APIs antes de producción; identificación de vulnerabilidades y desviaciones y definición de mitigaciones que mejoraron la postura global. Pruebas de testeo y pentesting controlado sobre componentes críticos. Monitorización proactiva en SIEM, firewalls, DNS, WAF, EDRs, alertas de Google Admin y Libra Esva, con revisión de threat intelligence, logrando detección temprana y reducción de incidentes no gestionados.</p>
-        <p><strong>Labores:</strong></p>
-        <ul class="plain">
-          <li>Gestión de incidentes; monitorización con SIEM, firewalls e IDS/IPS; gestión de tickets de revisión (cloud y on-prem); TSR; pentesting.</li>
-          <li>Herramientas: Imperva WAF, Check Point, Netskope, Elastic, Wazuh, IDS/IPS, Cisco Umbrella, Nessus, Acunetix, Tanium, Harmony, IntSights, Libra Esva; AWS GuardDuty, Cloud9, Inspector, CloudTrail, CloudWatch; Jira.</li>
-        </ul>
-      </div>
+    <hr>
 
-      <!-- TECNOPERITACIONES -->
-      <div class="item">
-        <div class="role"><strong>(Septiembre 2020 – Noviembre 2021) — PERITACIONES TECNOLÓGICAS E INFORMÁTICAS (Tecnoperitaciones)</strong> · Coordinación del equipo de Ciberseguridad</div>
-        <p><strong>Objetivos conseguidos:</strong> Consolidación de un área de <strong>hacking ético y auditorías</strong> plenamente operativa (web, redes corporativas, Active Directory y cloud — AWS/Azure), con metodologías adaptadas por cliente que permitieron detectar vulnerabilidades críticas y reducir riesgos de exposición. Implantación de medidas de securización y endurecimiento, mejorando la postura de seguridad de las organizaciones auditadas. Realización de análisis forenses y periciales en casos de ransomware y manipulación/eliminación de datos, garantizando integridad y trazabilidad de evidencias con validez judicial.</p>
-        <p><strong>Labores:</strong></p>
-        <ul class="plain">
-          <li>Hacking Ético / Pentesting: auditorías web, Active Directory, redes WiFi y nube (AWS, Azure). Securización en cliente final.</li>
-          <li>Análisis forense; clonación y análisis de dispositivos ante notario; informes periciales; autenticidad de conversaciones/archivos (multimedia, metadatos). OSINT.</li>
-        </ul>
-      </div>
+    <p><strong>Labores:</strong></p>
+    <ul>
+      <li>Implantación y configuración desde cero de la infraestructura central de gestión de vulnerabilidades, incluyendo sondas distribuidas (on-prem y cloud) y su integración con entornos corporativos de clientes.
+      <li>Administración avanzada de OpenVAS/Greenbone (GVMD, GSA, OSPD): configuración de targets, políticas de escaneo, scheduling y resolución de incidencias de comunicación, feeds, certificados o rendimiento.
+      <li>Extracción y correlación de vulnerabilidades mediante APIs, desarrollando procesos que combinan datos obtenidos desde CrowdStrike y   OpenVAS para generar inventarios enriquecidos y priorizar riesgos según CVSS, contexto de activo y exposición real.
+      <li>Automatización de procesos en Python y Bash, desarrollando scripts para conexión API, descarga masiva de resultados, normalización de informes XML/CSV/JSON y generación automática de reportes técnicos y ejecutivos.
+      <li>Integración bidireccional con sistemas de ticketing (Redmine) para registrar, asignar y cerrar vulnerabilidades de acuerdo con SLA, ENS e ISO 27001.
+      <li>Análisis y priorización de vulnerabilidades por CVSS, criticidad de activo y exposición en Falcon, facilitando la gestión del riesgo.
+      <li>Troubleshooting avanzado de la plataforma: base de datos PostgreSQL, servicios gvmd/ospd, consumo de recursos en sondas y problemas de red/distribución.
+      <li>Elaboración de informes técnicos y ejecutivos, mejorando la trazabilidad y la comunicación entre equipos.
 
-      <!-- SITEL -->
-      <div class="item">
-        <div class="role"><strong>(Febrero 2008 – Septiembre 2020) — SITEL IBÉRICA TELESERVICES</strong> · Soporte técnico (Yacom / Orange)</div>
-        <p><strong>Objetivos conseguidos:</strong> Optimización de procesos de atención y resolución de incidencias, mejorando tiempos de respuesta y la satisfacción de usuarios; documentación/estandarización de procedimientos para formación y reducción de errores; base técnica sólida en diagnóstico de red y soporte como punto de partida hacia ciberseguridad.</p>
-        <p><strong>Labores:</strong> Backoffice y resolución de incidencias técnicas.</p>
+    </ul>
+  </article>
+
+  <!-- WESTCON -->
+  <article class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">(Abril 2023 – Noviembre 2024) — WESTCON EUROPE</div>
+        <div class="job-sub">Analista de Seguridad Perimetral (Oficina técnica NIAE) - SSPA (SAS)</div>
       </div>
-    </section>
+      <!-- Logo -->
+      <!-- <img src="assets/westcon.png" alt="Westcon Europe" class="job-logo"> -->
+    </div>
+
+    <p><strong>Objetivos conseguidos:</strong> Optimización de la seguridad perimetral y del balanceo de servicios críticos del SSPA mediante la administración avanzada de Check Point, Palo Alto, F5 Big IP (LTM/GTM/APM), F5 Distributed Cloud, Symantec (Bluecoat), Netskope y Arcsight.</p>
+
+<p>Las optimizaciones aplicadas en políticas, BGP, PBFs, NATs y rutas mejoraron el rendimiento global y permitieron adaptar la infraestructura a las necesidades operativas del SAS, reforzando la disponibilidad y estabilidad de la red sanitaria andaluza.</p>
+
+<p>Lideración del proyecto de migración masiva de las publicaciones del SAS a la nube de F5, llevada a cabo tras el fin de licencias de los proxies Symantec (Bluecoat).</p>
+
+<p>Durante la transición se configuraron iRules y políticas personalizadas en F5 para resolver incidencias de visualización web, redirecciones HTTP/HTTPS, tratamiento de cabeceras y bloqueo de elementos en navegadores, garantizando la continuidad del servicio y la correcta visualización de los portales corporativos.
+</p>
+
+    <hr>
+
+    <p><strong>Labores:</strong></p>
+    <p>Administración integral de soluciones de:</p>
+    <ul>
+      <li><strong>SASE:</strong> Netskope </li>
+      <li><strong>Proxy:</strong> Symantec Bluecoat 
+      <li><strong>Firewalls:</strong> Check Point, Palo Alto, Forti
+      <li><strong>Balanceador/DNS:</strong> F5 Big-IP (GTM/LTM) 
+      <li><strong>VPN-SSL:</strong> F5 Big-IP (APM)</li>
+      <li><strong>F5 Distributed Cloud y F5 Big-IP: </strong> balanceo y publicación de servidores (reverse proxy) para los dominios del SAS y sus distintos organismos  (SSPA). Configuración y mantenimiento de iRules personalizadas para control de tráfico, cabeceras, redirecciones y refuerzo de seguridad de aplicaciones. Uso de Postman para pruebas e integración de APIs de F5 Big IP / Distributed Cloud en procesos de publicación de servicios.</li>
+      <li><strong>SIEM:</strong> Arcsight 
+      <li><strong>Inteligencia de red:</strong> ALLOT 
+      <li>Gestión de caudales, control de acceso unificado a la red, gestión de logs y sandboxing.</li>
+      <li>Tareas de soporte especializado y resolución de incidencias, escalados a fabricante.  Elaboración de informes técnicos</li>
+    </ul>
+  </article>
+
+  <!-- ADMIRAL -->
+  <article class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">(Noviembre 2021 – Abril 2023) — EUIGS (ADMIRAL SEGUROS)</div>
+        <div class="job-sub">SOC Analyst. Integrante del equipo de SOC</div>
+      </div>
+      <!-- Logo -->
+      <!-- <img src="assets/admiral.png" alt="Admiral Seguros" class="job-logo"> -->
+    </div>
+
+    <p><strong>Objetivos conseguidos:</strong> Ejecución de revisiones técnicas de seguridad (TSR) sobre nuevos proyectos desplegados tanto en la nube de AWS como en entornos on-prem, evaluando la robustez de infraestructuras, aplicaciones y APIs antes de su puesta en producción.
+
+Mediante el análisis de nuevas funcionalidades, herramientas y servicios, se identificaron vulnerabilidades y desviaciones de seguridad, estableciendo medidas de mitigación que mejoraron la postura de seguridad global de la organización.</p>
+
+
+<p>Desarrollo de pruebas de testeo y pentesting controlado sobre componentes críticos, asegurando el cumplimiento de estándares internos y de buenas prácticas cloud.</p>
+
+<p>Gestión proactiva de la monitorización de seguridad en todos los sistemas corporativos, abarcando SIEM, firewalls, DNS, WAF, EDRs, alertas de Google Admin y filtrado de correo con Libra Esva, junto con la revisión de fuentes de threat intelligence externas, lo que permitió una detección temprana de amenazas y una reducción significativa de incidentes no gestionados.
+</p>
+
+    <hr>
+
+    <p><strong>Labores:</strong></p>
+    <ul>
+      <li>Gestión de incidentes de seguridad, amenazas y vulnerabilidades.
+      <li>Monitorización de eventos y vulnerabilidades mediante SIEM, firewalls, IDS/IPS.
+      <li>Gestión de tickets de revisión de seguridad de aplicaciones, servicios e infraestructura, tanto en cloud como física.
+      <li>Evaluación de riesgos de entornos y aplicaciones (TSR – technical security reviews). 
+      <li>Pentesting.
+      <li>Uso y administración de herramientas de seguridad y gestión de vulnerabilidades. WAF (Imperva), firewalls (Check Point), proxy (Netskope), SIEM (Elastic, Wazuh), IDS/IPS, DNS (Cisco Umbrella), Gestión de vulnerabilidades (Nessus, Acunetix), EDR (Tanium, Harmony), Threat Intelligence (IntSights), mail security (Libra Esva).
+      <li>Herramientas de seguridad AWS: Amazon GuardDuty, Cloud9, Amazon Inspector, CloudTrail, CloudWatch.
+      <li>Uso y gestión de herramienta de ticketing, gestión de proyectos y workfows con Jira.
+</li>
+    </ul>
+  </article>
+
+  <!-- TECNOPERITACIONES -->
+  <article class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">(Septiembre 2020 – Noviembre 2021) — PERITACIONES TECNOLÓGICAS E INFORMÁTICAS (Tecnoperitaciones)</div>
+        <div class="job-sub">Coordinación del equipo de Ciberseguridad</div>
+      </div>
+      <!-- Logo -->
+      <!-- <img src="assets/tecnoperitaciones.png" alt="Tecnoperitaciones" class="job-logo"> -->
+    </div>
+
+    <p><strong>Objetivos conseguidos:</strong> Consolidación de un área de hacking ético y auditorías de seguridad plenamente operativa, capaz de evaluar de forma integral infraestructuras web, redes corporativas, Active Directory y entornos cloud (AWS y Azure).
+Estandarización de metodologías de pentesting y auditoría adaptadas a cada cliente, que permitieron detectar vulnerabilidades críticas y reducir significativamente los riesgos de exposición.</p>
+
+<p>Implantación de medidas de securización y planes de endurecimiento que reforzaron la protección de sistemas y mejoraron la postura de seguridad global de las organizaciones auditadas.</p>
+
+<p>Realización de análisis forenses y periciales digitales en casos de ransomware, manipulación o eliminación de datos, asegurando la integridad y trazabilidad de las evidencias para su uso judicial.
+</p>
+
+    <hr>
+
+    <p><strong>Labores:</strong></p>
+    <ul>
+      <li>Hacking Ético / Pentesting. Auditorías web, directorio activo, redes wifi, nube (AWS, Azure). 
+      <li>Securización. Implantación de mejoras y soluciones en cliente final. 
+      <li>Análisis forense (casos de ransomware, virus, eliminación o manipulación de información digital). 
+      <li>Clonación y análisis de dispositivos digitales ante notario (móviles, tablets, discos duros, grabadoras, etc). 
+      <li>Investigación y elaboración de informes periciales para procedimientos judiciales. 
+      <li>Análisis y acreditación de autenticidad de conversaciones (WhatsApp, Telegram, Instagram, etc.), archivos digitales (imágenes, vídeos, audio, metadatos, etc.).
+      <li>OSINT. 
+
+    </ul>
+  </article>
+
+  <!-- SITEL -->
+  <article class="job-card">
+    <div class="job-head">
+      <div>
+        <div class="job-title">(Febrero 2008 – Septiembre 2020) — SITEL IBÉRICA TELESERVICES</div>
+        <div class="job-sub">Departamento de SOPORTE TÉCNICO de Yacom y Orange</div>
+      </div>
+      <!-- Logo -->
+      <!-- <img src="assets/sitel.png" alt="Sitel Ibérica" class="job-logo"> -->
+    </div>
+
+    <p><strong>Objetivos conseguidos:</strong> Optimización de los procesos de atención y resolución de incidencias técnicas en los servicios de Yacom y Orange, mejorando los tiempos de respuesta y la satisfacción de los usuarios.</p>
+
+<p>Participación en la documentación y estandarización de procedimientos técnicos, que facilitaron la formación de nuevos agentes y redujeron la tasa de errores operativos.</p>
+
+<p>Desarrollo de una base sólida técnica en diagnóstico de red y soporte al cliente, que sirvió de punto de partida para la posterior especialización en diferentes campos de ciberseguridad y seguridad perimetral.
+</p>
+
+    <hr>
+
+    <p><strong>Labores:</strong></p>
+    <ul>
+    	<li>Realización de tareas de backoffice, gestión y resolución de incidencias técnicas.</li>
+    </ul>
+    
+  </article>
+</section>
 
     <!-- FORMACIÓN -->
     <section id="formacion" data-section class="card">
       <h2>Formación</h2>
-      <ul class="plain">
-        <li><strong>Grado en Ingeniería Informática — UOC</strong> (en curso; a falta de 10 asignaturas). Nota media: 8.</li>
+      <ul>
+        <li><strong>Grado en Ingeniería Informática - UOC</strong> (en curso; a falta de 10 asignaturas). <strong>Nota media: 8.</strong></li>
         <li><strong>CFGS Administración de Sistemas Informáticos en Red (ASIR)</strong>.</li>
       </ul>
       <h3 style="margin-top:18px;color:#0f2537">Formación complementaria</h3>
-      <ul class="plain">
-        <li>Netskope’s Certified Cloud Security Administrator (NCCSA) — 2024</li>
-        <li>Introducción al hacking — 2024 (Hack4u.io) · Introducción a Linux — 2024 (Hack4u.io)</li>
-        <li>Curso CISCO CCNA (200 h) — Cloud Formación (2022) · AWS Certified Cloud Practitioner (2022)</li>
-        <li>Hacking Ético (2021) · Hacking WiFi (2021) · Seguridad informática en la empresa (2020)</li>
-        <li>+40 cursos OpenWebinars: Linux/automatización (Bash, Ansible, Docker, Kubernetes), ofensiva/defensiva, cloud/automatización (AWS, CloudFormation, SPARQL, Python).</li>
+      <ul>
+        <li>Netskope’s Certified Cloud Security Administrator (NCCSA) - 2024
+        <li>Introducción al hacking (2024 - Academia Hack4u.io)
+        <li>Introducción a Linux (2024 - Academia Hack4u.io)
+        <li>Curso CISCO CCNA (200 h) - Cloud Formación (2022)
+        <li>AWS Certified Cloud Practitioner (2022)
+        <li>Curso Introducción al Hacking Ético. Mastermind (2021)
+        <li>Curso Hacking de Redes Inalámbricas (WiFi). Mastermind (2021)
+        <li>Curso Seguridad Informática en la Empresa. Fundación Confemetal  (2020)
+        <li>Formación continua en ciberseguridad, sistemas y cloud con más de 40 cursos certificados (OpenWebinars), incluyendo temáticas como: Linux/automatización (Bash, Ansible, Docker, Kubernetes), ofensiva/defensiva, cloud/automatización (AWS, CloudFormation, SPARQL, Python).
       </ul>
     </section>
 
     <!-- CONOCIMIENTOS -->
     <section id="conocimientos" data-section class="card">
       <h2>Conocimientos técnicos</h2>
-      <div class="role">SIEM, monitorización y detección</div>
+      <div class="role"><strong>SIEM, monitorización y detección</strong></div>
       <p>
         <span class="pill">ArcSight</span><span class="pill">Elastic SIEM</span><span class="pill">Wazuh</span>
         <span class="pill">Amazon GuardDuty</span><span class="pill">CloudWatch/CloudTrail</span>
         <span class="pill">Microsoft Sentinel (nociones)</span><span class="pill">Splunk (nociones)</span>
       </p>
 
-      <div class="role" style="margin-top:8px">Gestión de vulnerabilidades y EDR</div>
+      <div class="role" style="margin-top:8px"><strong>Gestión de vulnerabilidades y EDR</strong></div>
       <p>
         <span class="pill">OpenVAS/Greenbone (GVMD, GSA, OSPD)</span><span class="pill">CrowdStrike Falcon</span>
         <span class="pill">Nessus</span><span class="pill">Acunetix</span><span class="pill">SecurityScoreCard</span>
         <span class="pill">Panorays</span><span class="pill">Tanium</span><span class="pill">Harmony</span>
       </p>
 
-      <div class="role" style="margin-top:8px">Seguridad perimetral, SASE y firewalling</div>
+      <div class="role" style="margin-top:8px"><strong>Seguridad perimetral, SASE y firewalling</strong></div>
       <p>
         <span class="pill">Netskope (SASE/CASB/SWG/ZTNA)</span><span class="pill">Palo Alto</span>
         <span class="pill">Check Point</span><span class="pill">Fortinet</span>
@@ -199,13 +325,13 @@
         <span class="pill">F5 Distributed Cloud</span><span class="pill">Allot</span>
       </p>
 
-      <div class="role" style="margin-top:8px">WAF, IDS/IPS y protección avanzada</div>
+      <div class="role" style="margin-top:8px"><strong>WAF, IDS/IPS y protección avanzada</strong></div>
       <p>
         <span class="pill">Imperva WAF</span><span class="pill">Snort</span><span class="pill">Suricata</span>
         <span class="pill">Cisco Umbrella DNS</span><span class="pill">AWS Inspector</span>
       </p>
 
-      <div class="role" style="margin-top:8px">Automatización, scripting y desarrollo</div>
+      <div class="role" style="margin-top:8px"><strong>Automatización, scripting y desarrollo</strong></div>
       <p>
         <span class="pill">Python</span><span class="pill">Bash</span><span class="pill">PowerShell</span>
         <span class="pill">APIs REST (CrowdStrike, OpenVAS, Redmine, EasyVista)</span>
@@ -213,15 +339,15 @@
         <span class="pill">Reporting & Integración</span>
       </p>
 
-      <div class="role" style="margin-top:8px">Gestión de incidentes, ITSM y GRC</div>
+      <div class="role" style="margin-top:8px"><strong>Gestión de incidentes, ITSM y GRC</strong></div>
       <p>
         <span class="pill">Redmine</span><span class="pill">EasyVista</span><span class="pill">Jira</span>
         <span class="pill">ENS</span><span class="pill">ISO 27001</span><span class="pill">NIST</span><span class="pill">SLA</span>
       </p>
 
-      <div class="role" style="margin-top:8px">Auditoría, pentesting y forense</div>
+      <div class="role" style="margin-top:8px"><strong>Auditoría, pentesting y forense</strong></div>
       <p>
-        <span class="pill">Auditorías redes & AD</span><span class="pill">Forense de evidencias</span>
+        <span class="pill">Auditorías redes & AD</span><span class="pill">Forensic</span>
         <span class="pill">OSINT</span><span class="pill">Informes periciales</span>
       </p>
     </section>
@@ -238,21 +364,44 @@
     <!-- OTROS -->
     <section id="otros" data-section class="card">
       <h2>Otros datos de interés</h2>
-      <ul class="plain">
-        <li>Apasionada de la ciberseguridad y CTFs (Hack The Box, TryHackMe, VulnHub, PortSwigger Labs, OverTheWire).</li>
-        <li>Alta capacidad para trabajar en equipo. Gran capacidad de adaptación y aprendizaje. En constante formación. Preferencia por trabajos en remoto.</li>
+      <ul>
+        <li>Apasionada de la ciberseguridad y CTFs (Hack The Box, TryHackMe, VulnHub, PortSwigger Labs, OverTheWire).
+        <li>Alta capacidad para trabajar en equipo. </li>
+        <li>Gran capacidad de adaptación y aprendizaje. </li>
+        <li>En constante formación. </li>
+        <li>Preferencia por trabajos en remoto.</li>
       </ul>
     </section>
 
-    <!-- CONTACTO -->
-    <section id="contacto" data-section class="card">
-      <h2>Contacto</h2>
-      <ul class="plain">
-        <li><strong>Teléfono:</strong> +34 616 186 786</li>
-        <li><strong>Email:</strong> <a href="mailto:mfern019@gmail.com">mfern019@gmail.com</a></li>
-        <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/carmen-fernandez-763942167/" target="_blank" rel="noopener">/in/carmen-fernandez-763942167/</a></li>
-      </ul>
-    </section>
+ <!-- CONTACTO -->
+<section id="contacto" data-section class="card">
+  <h2>Contacto</h2>
+
+  <div class="contact-item">
+    <i class="fa-solid fa-envelope"></i>
+    <b>Email:</b>
+    <a href="mailto:mfern019@gmail.com">mfern019@gmail.com</a>
+  </div>
+
+  <div class="contact-item">
+    <i class="fa-brands fa-linkedin" style="color:#0a66c2"></i>
+    <b>LinkedIn:</b>
+    <a href="https://linkedin.com/in/carmen-fernández-763942167" target="_blank">Perfil LinkedIn</a>
+  </div>
+
+  <div class="contact-item">
+    <i class="fa-brands fa-github" style="color:#24292e"></i>
+    <b>GitHub:</b>
+    <a href="https://github.com/" target="_blank">github.com/mfern019</a>
+  </div>
+
+  <div class="contact-item">
+    <i class="fa-solid fa-location-dot" style="color:#d26b00"></i>
+    <b>Ubicación:</b>
+    Sevilla (España)
+  </div>
+</section>
+
   </main>
 
   <footer>
