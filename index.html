@@ -443,7 +443,7 @@
       printBtn.addEventListener("click", () => {
         beforePrintAll();
         window.print();
-        // Como algunos navegadores disparan afterprint; por si acaso restauramos también con un timeout
+        // Algunos navegadores disparan afterprint; por si acaso restauramos también con un timeout
         setTimeout(afterPrintRestore, 0);
       });
       window.addEventListener("afterprint", afterPrintRestore);
