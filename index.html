@@ -24,7 +24,7 @@
       --paper:#ffffff; --line:#e5e7eb; --accent:#c9a227;
       --chip:#fff3cc; --chip-b:#ffe99a;
     }
-    /* Oscuro sólo cuando activas el toggle */
+    /* Oscuro sólo al activar el toggle */
     [data-theme="dark"]{
       --bg:#0b1e2d; --ink:#e7ecf3; --muted:#a7b0bd;
       --paper:#0f1722; --line:#223244; --accent:#d4b139;
@@ -81,12 +81,11 @@
     section[data-section]{display:block}
     section[data-section][hidden]{display:none}
 
-    /* Cursos / Certs */
+    /* Certs */
     .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
     .cert{border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:12px;transition:transform .15s}
     .cert:hover{transform:translateY(-2px)}
     .cert h4{margin:0 0 6px;font-size:1rem}
-
     .thumb{width:100%;border-radius:10px;display:block;transition:transform .2s, box-shadow .2s;cursor:zoom-in}
     .thumb:hover{transform:scale(1.03);box-shadow:0 8px 26px rgba(0,0,0,.18)}
     .cert .actions{margin-top:6px;font-size:.95rem}
@@ -216,7 +215,7 @@
             <div class="job-title">(Septiembre 2020 – Noviembre 2021) — PERITACIONES TECNOLÓGICAS E INFORMÁTICAS (Tecnoperitaciones)</div>
             <div class="job-sub">Coordinación del equipo de Ciberseguridad</div>
           </div>
-        <img src="assets/tecnoperitaciones.png" alt="Tecnoperitaciones" class="job-logo" loading="lazy" width="140" height="64">
+          <img src="assets/tecnoperitaciones.png" alt="Tecnoperitaciones" class="job-logo" loading="lazy" width="140" height="64">
         </div>
         <p><strong>Objetivos conseguidos:</strong> Área de hacking/auditoría; metodologías; endurecimiento; forense y pericial con cadena de custodia.</p>
       </article>
@@ -292,17 +291,10 @@
         <span class="pill">OSINT</span><span class="pill">Informes periciales</span></p>
     </section>
 
-    <!-- CURSOS / CERTIFICACIONES -->
+    <!-- CURSOS / CERTIFICACIONES (solo imágenes) -->
     <section id="cursos" data-section class="card page-break">
       <h2>Cursos / Certificaciones</h2>
-
-      <h3>OpenWebinars (miniaturas + PDF)</h3>
-      <div id="ow-list" class="certs-grid"></div>
-      <p style="margin-top:8px;color:var(--muted)">
-        Se muestran miniaturas PNG generadas de cada certificado. Al hacer <strong>click</strong> se abre el <strong>PDF completo</strong> (si existe); también puedes <em>ver grande</em> la imagen en un lightbox.
-      </p>
-
-      <h3 style="margin-top:18px">Otras certificaciones (imágenes)</h3>
+      <p style="margin-top:-6px;color:var(--muted)">Haz click en cualquier tarjeta para <strong>verla en grande</strong>. También puedes “Abrir imagen” en nueva pestaña.</p>
       <div id="other-certs" class="certs-grid"></div>
     </section>
 
@@ -392,7 +384,7 @@
       /* ===== Imprimir todo ===== */
       document.getElementById("printBtn").addEventListener("click",()=>window.print());
 
-      /* ===== Modo oscuro por botón ===== */
+      /* ===== Modo oscuro (botón + persistencia) ===== */
       const themeBtn=document.getElementById("themeBtn");
       const saved=localStorage.getItem("theme")||"light";
       applyTheme(saved);
@@ -430,35 +422,7 @@
       });
       if(window.QRCode) QRCode.toString(v,{type:"svg",margin:1,scale:4},(err,svg)=>{ if(!err) document.getElementById("qr").innerHTML=svg; });
 
-      /* ===== OpenWebinars (miniaturas + PDF) =====
-         PNG esperado: assets/openwebinars/thumbs/<CODE>.png
-         PDF opcional: assets/openwebinars/<CODE>.pdf  */
-      const OW_CODES = [
-        "PgW0D","55R6k","KypB3","eX7l2","l0w3K","W2Ag2","jnR8m","ZLdD6",
-        "zkKeZ","LJqMy","74Xyr","2NbX9","1r8Qa","XWDbM","4rGLD","3kj3l",
-        "Kry52","9qD7J","5y5lm","lP0qd","GdpzE","nRaOw","k1j2m","wMYZE",
-        "Ar7AK","p0anB","RQ7ll","g30AN","a7EeD","bDWJR","jneLE","KyZjN",
-        "ZL6d5","a7dJY","85NY5","XDYl6","9Dra3","EJNpN"
-      ];
-      const owWrap=document.getElementById("ow-list");
-      OW_CODES.forEach(code=>{
-        const png = `assets/openwebinars/thumbs/${code}.png`;
-        const pdf = `assets/openwebinars/${code}.pdf`; // si no existe, igualmente habrá link a la imagen grande
-        const card=document.createElement("figure");
-        card.className="cert";
-        card.innerHTML=`
-          <h4>OpenWebinars — ${code}</h4>
-          <img class="thumb" src="${png}" alt="Certificado ${code}" loading="lazy" data-lightbox="img">
-          <div class="actions">
-            <a href="${pdf}" target="_blank" rel="noopener">Abrir PDF</a>
-            <a href="#" data-open="${png}">Ver grande</a>
-            <a href="https://openwebinars.net/cert/${code}" target="_blank" rel="noopener">Ver en OpenWebinars</a>
-          </div>`;
-        owWrap.appendChild(card);
-      });
-
-      /* ===== Otras certificaciones (imágenes) =====
-         Coloca los PNG en assets/certs/ con estos nombres exactos */
+      /* ===== Certificaciones (solo imágenes en assets/certs/) ===== */
       const OTHER_CERTS = [
         "Análisis de malware.png",
         "Ansible.png",
@@ -500,9 +464,9 @@
         "Técnicas de Investigación e inteligencia en fuentes abiertas.png",
         "Triage informático.png",
         "Vagrant para desarrolladores.png",
-        "Windows Server 2019.png",
         "Wordpress en un entorno de desarrollo local de forma profesional.png"
       ];
+
       const otherWrap=document.getElementById("other-certs");
       OTHER_CERTS.forEach(name=>{
         const src=`assets/certs/${name}`;
@@ -518,12 +482,11 @@
         otherWrap.appendChild(fig);
       });
 
-      /* ===== Lightbox (solo imágenes) ===== */
+      /* ===== Lightbox (imágenes) ===== */
       const lb=document.getElementById("lightbox");
       const lbContent=document.getElementById("lightboxContent");
       const lbClose=document.getElementById("lightboxClose");
 
-      // Abrir desde imágenes con data-lightbox="img"
       document.body.addEventListener("click",(e)=>{
         const img=e.target.closest('[data-lightbox="img"]');
         const openLink=e.target.closest('[data-open]');
