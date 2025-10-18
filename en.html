@@ -1,13 +1,21 @@
+¡Hecho! Aquí tienes la versión **inglesa completa** (`en.html`) con todo traducido fiel a tu contenido, mismo diseño/comportamiento, botón para volver a ES, impresión de **todas** las secciones y el grid único de certificaciones (top primero, luego OpenWebinars).
+
+> Pega esto como `en.html`.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Carmen Fernández Arrebola — CV</title>
-  <meta name="description" content="Curriculum vitae of Carmen Fernández Arrebola — Vulnerability management, perimeter security, automation."/>
+  <title>Carmen Fernández Arrebola — Resume</title>
+  <meta name="description" content="Resume of Carmen Fernández Arrebola — Vulnerability Management, Perimeter Security, Automation."/>
+
   <!-- Icons -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <!-- QR -->
+  <script defer src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 
   <style>
     :root{
@@ -36,11 +44,9 @@
 
     /* MAIN + SECTIONS */
     main{padding:18px 0}
-    .toolbar{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
-    .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
+    .toolbar{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
     .btn:hover{background:#fafafa}
-    .btn.accent{background:#c9a227;color:#0f2537;border-color:#c9a227}
-    .btn img{display:block;border-radius:2px}
 
     .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:26px;margin:26px auto}
     h2{margin:0 0 14px;color:var(--bg);font-size:1.25rem;border-left:6px solid var(--accent);padding-left:10px}
@@ -48,10 +54,9 @@
     .item:last-child{border-bottom:0}
     ul.plain{list-style:none;padding:0;margin:8px 0 0}
     ul.plain li{margin:6px 0}
-    .pill{display:inline-block;border:1px solid #ffe99a;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:#fff3cc;color:#0f2537;font-weight:500;transition:background .2s,transform .1s}
-    .pill:hover{background:#ffe99a;transform:translateY(-1px)}
+    .pill{display:inline-block;border:1px solid #ffe99a;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:#fff3cc;color:#0f2537;font-weight:500;transition:background .2s,transform .1s}.pill:hover{background:#ffe99a;transform:translateY(-1px)}
 
-    /* Job cards */
+    /* Experience cards */
     .job-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:18px 18px 14px;margin:18px 0}
     .job-head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
     .job-title{font-weight:700}
@@ -61,18 +66,45 @@
     .job-card ul{margin:8px 0 0;padding-left:18px}
     .job-card hr{border:none;border-top:1px dashed var(--line);margin:12px 0}
 
-    /* Show/hide */
+    /* Show/hide with JS (without JS all visible) */
     section[data-section]{display:block}
     section[data-section][hidden]{display:none}
 
+    /* Certifications */
+    .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+    .cert{border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:12px;transition:transform .15s}
+    .cert:hover{transform:translateY(-2px)}
+    .cert h4{margin:0 0 6px;font-size:1rem}
+    .thumb{width:100%;border-radius:10px;display:block;transition:transform .2s, box-shadow .2s;cursor:zoom-in}
+    .thumb:hover{transform:scale(1.03);box-shadow:0 8px 26px rgba(0,0,0,.18)}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+    .lightbox.open{display:flex}
+    .lightbox-content{max-width:95vw;max-height:90vh;background:#000;border-radius:10px;overflow:hidden;position:relative}
+    .lightbox-content img{display:block;max-width:95vw;max-height:90vh}
+    .lightbox .close{position:absolute;top:10px;right:14px;background:#000;border:1px solid #444;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer}
+
+    /* Contact */
+    .contact-item{display:flex;align-items:center;gap:8px;margin:8px 0}
+    .copy{position:relative}
+    .copy .tip{position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:#000;color:#fff;font-size:.8rem;padding:4px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s}
+    .copy.copied .tip{opacity:1}
+
+    /* Print (print EVERYTHING) */
+    .page-break{break-before:page}
     footer{padding:24px 18px;text-align:center;color:var(--muted)}
-    @media (max-width:720px){
-      .navwrap{justify-content:space-between}
-    }
+
+    @media (max-width:720px){ .navwrap{justify-content:space-between} }
+    @page{ size:A4; margin:14mm 14mm 16mm; }
     @media print{
-      nav,.toolbar,footer{display:none}
-      .card{box-shadow:none;border:none;margin:0;padding:0}
+      nav,.toolbar,footer{display:none !important}
+      .card{box-shadow:none;border:none;margin:0 0 12mm 0;padding:0}
       body{background:#fff}
+      section[data-section]{display:block !important}
+      [hidden]{display:block !important}
+      header{page-break-after:always}
+      .page-break{break-before:page}
     }
   </style>
 </head>
@@ -89,13 +121,14 @@
   <!-- NAV -->
   <nav>
     <div class="container navwrap" role="navigation" aria-label="Sections">
-      <a href="#perfil"><i class="fa-solid fa-user-shield"></i>Profile</a>
-      <a href="#experiencia"><i class="fa-solid fa-briefcase"></i>Work Experience</a>
-      <a href="#formacion"><i class="fa-solid fa-graduation-cap"></i>Education</a>
-      <a href="#conocimientos"><i class="fa-solid fa-wrench"></i>Technical Skills</a>
-      <a href="#idiomas"><i class="fa-solid fa-language"></i>Languages</a>
-      <a href="#otros"><i class="fa-solid fa-circle-info"></i>Other</a>
-      <a href="#contacto"><i class="fa-solid fa-paper-plane"></i>Contact</a>
+      <a href="#profile"><i class="fa-solid fa-user-shield"></i>Profile</a>
+      <a href="#experience"><i class="fa-solid fa-briefcase"></i>Work Experience</a>
+      <a href="#education"><i class="fa-solid fa-graduation-cap"></i>Education</a>
+      <a href="#skills"><i class="fa-solid fa-wrench"></i>Technical Skills</a>
+      <a href="#courses"><i class="fa-solid fa-certificate"></i>Courses / Certifications</a>
+      <a href="#languages"><i class="fa-solid fa-language"></i>Languages</a>
+      <a href="#other"><i class="fa-solid fa-circle-info"></i>Other</a>
+      <a href="#contact"><i class="fa-solid fa-paper-plane"></i>Contact</a>
     </div>
   </nav>
 
@@ -103,47 +136,44 @@
   <main class="container">
     <div class="toolbar">
       <button class="btn" id="printBtn"><i class="fa-solid fa-print"></i> Print / PDF</button>
-      <a class="btn accent" href="index.html" title="Versión en español">
+      <a class="btn" href="index.html" title="Versión en español">
         <img src="https://flagcdn.com/w20/es.png" alt="Español" width="20" height="14"> ES
       </a>
     </div>
 
     <!-- PROFILE -->
-    <section id="perfil" data-section class="card">
+    <section id="profile" data-section class="card">
       <h2>Professional Profile</h2>
-      <p>Specialist with over 5 years of experience in vulnerability management across medium and large companies — covering detection, analysis, triage, and continuous follow-up of remediation — eliminating false positives and improving process traceability.</p>
-      <p>Experienced in automating VM processes and with strong knowledge of UNE-EN ISO/IEC 27001:2023 and the Spanish National Security Framework (ENS, High category). Skilled in API instrumentation and professional use of CrowdStrike Falcon, Netskope, Palo Alto, Check Point, F5 (Big-IP / Distributed Cloud), and Greenbone (OpenVAS) in corporate environments.</p>
+      <p>Specialist with more than 5 years of experience in vulnerability management in mid-sized and large companies, from detection, analysis and triage to communication and continuous follow-up of remediation, eliminating false positives and improving process traceability.</p>
+      <p>Experience in process automation for VM and solid knowledge of UNE-EN ISO/IEC 27001:2023 and ENS (HIGH category). Professional use and API-level instrumentation of CrowdStrike Falcon, Netskope, Palo Alto, Check Point, F5 (Big-IP / Distributed Cloud) and Greenbone (OpenVAS) in corporate environments.</p>
     </section>
 
     <!-- WORK EXPERIENCE -->
-    <section id="experiencia" data-section class="card">
+    <section id="experience" data-section class="card">
       <h2>Work Experience</h2>
 
       <!-- SERVINFORM -->
       <article class="job-card">
         <div class="job-head">
           <div>
-            <div class="job-title">(November 2024 – Present) - SERVINFORM S.A.</div>
-            <div class="job-sub">Vulnerability Management. Full lifecycle management of vulnerabilities in corporate environments using OpenVAS/Greenbone as the main platform.</div>
+            <div class="job-title">(November 2024 – Present) — SERVINFORM S.A.</div>
+            <div class="job-sub">Vulnerability Management. End-to-end management of the vulnerability lifecycle in corporate environments, using OpenVAS/Greenbone as the main tool.</div>
           </div>
           <img src="assets/servinform.png" alt="Servinform" class="job-logo">
           <div class="job-when"></div>
         </div>
-
-        <p><strong>Achievements:</strong> Design, implementation, and consolidation of the corporate vulnerability management system with distributed on-prem and cloud infrastructure, full cycle automation, and &gt;70% reduction in detection, analysis, and remediation time. ENS and ISO 27001 integration and executive reporting with full traceability.</p>
-
+        <p><strong>Achievements:</strong> Design, deployment and consolidation of the corporate vulnerability management system, with distributed on-prem and cloud infrastructure, full-cycle automation and &gt;70% reduction in detection, analysis and remediation times. ENS and ISO 27001 alignment and executive reporting with full traceability.</p>
         <hr>
-
         <p><strong>Responsibilities:</strong></p>
         <ul>
-          <li>Deployment and configuration from scratch of the central vulnerability management infrastructure, including distributed scanners (on-prem and cloud) and integration with client corporate environments.</li>
-          <li>Advanced administration of OpenVAS/Greenbone (GVMD, GSA, OSPD): target configuration, scan policies, scheduling, and troubleshooting of communication, feeds, certificates, or performance issues.</li>
-          <li>Vulnerability extraction and correlation through APIs, building processes that combine data from CrowdStrike and OpenVAS to enrich inventories and prioritize risk based on CVSS, asset context, and real exposure.</li>
-          <li>Process automation in Python and Bash: API connections, bulk downloads, normalization of XML/CSV/JSON reports, and automatic generation of technical and executive reports.</li>
-          <li>Bidirectional integration with ticketing systems (Redmine) to register, assign, and close vulnerabilities in line with SLAs, ENS, and ISO 27001.</li>
-          <li>Analysis and prioritization by CVSS, asset criticality, and Falcon exposure to facilitate risk management.</li>
-          <li>Advanced troubleshooting: PostgreSQL database, gvmd/ospd services, resource consumption on scanners, and network/distribution issues.</li>
-          <li>Creation of technical and executive reports, improving traceability and cross-team communication.</li>
+          <li>Greenfield deployment and configuration of the central vulnerability management infrastructure, including distributed sensors (on-prem and cloud) and integration with customer corporate environments.</li>
+          <li>Advanced administration of OpenVAS/Greenbone (GVMD, GSA, OSPD): target configuration, scan policies, scheduling, and troubleshooting of communication, feeds, certificates or performance.</li>
+          <li>Vulnerability extraction and correlation via APIs, building processes that combine data from CrowdStrike and OpenVAS to create enriched inventories and prioritize risk by CVSS, asset context and real exposure.</li>
+          <li>Process automation in Python and Bash: API connection, bulk results download, XML/CSV/JSON normalization and automatic generation of technical and executive reports.</li>
+          <li>Bidirectional integration with ticketing (Redmine) to log, assign and close vulnerabilities in line with SLAs, ENS and ISO 27001.</li>
+          <li>Vulnerability analysis and prioritization by CVSS, asset criticality and exposure in Falcon, enabling risk management.</li>
+          <li>Advanced platform troubleshooting: PostgreSQL DB, gvmd/ospd services, resource usage on sensors and network/distribution issues.</li>
+          <li>Drafting of technical and executive reports, improving traceability and cross-team communication.</li>
         </ul>
       </article>
 
@@ -152,31 +182,28 @@
         <div class="job-head">
           <div>
             <div class="job-title">(April 2023 – November 2024) — WESTCON EUROPE</div>
-            <div class="job-sub">Perimeter Security Analyst (NIAE technical office) - SSPA (SAS)</div>
+            <div class="job-sub">Perimeter Security Analyst (NIAE technical office) — SSPA (SAS)</div>
           </div>
           <img src="assets/westcom.png" alt="Westcon Europe" class="job-logo">
         </div>
-
-        <p><strong>Achievements:</strong> Optimization of perimeter security and load balancing for critical SSPA services through advanced administration of Check Point, Palo Alto, F5 Big-IP (LTM/GTM/APM), F5 Distributed Cloud, Symantec (Bluecoat), Netskope, and Arcsight.</p>
-        <p>Policy, BGP, PBFs, NATs, and routing optimizations improved overall performance and enabled the infrastructure to adapt to SAS operational needs, strengthening availability and stability across Andalusia’s healthcare network.</p>
-        <p>Led the large-scale migration of SAS publications to F5’s cloud platform after Bluecoat proxy licenses reached end-of-life.</p>
-        <p>During the transition, custom iRules and policies were configured on F5 to resolve web rendering issues, HTTP/HTTPS redirections, header handling, and element blocking in browsers, ensuring service continuity and correct visualization of corporate portals.</p>
-
+        <p><strong>Achievements:</strong> Optimization of perimeter security and load balancing of critical SSPA services through advanced administration of Check Point, Palo Alto, F5 Big-IP (LTM/GTM/APM), F5 Distributed Cloud, Symantec (Bluecoat), Netskope and Arcsight.</p>
+        <p>Policy, BGP, PBFs, NATs and routing optimizations improved overall performance and adapted the infrastructure to SAS operational needs, strengthening availability and stability of Andalusia’s healthcare network.</p>
+        <p>Led the large-scale migration of SAS publications to F5 cloud after Bluecoat proxy licenses ended.</p>
+        <p>During the transition, custom iRules and policies were configured in F5 to solve web rendering issues, HTTP/HTTPS redirections, header handling and element blocking in browsers, ensuring service continuity and correct display of corporate portals.</p>
         <hr>
-
         <p><strong>Responsibilities:</strong></p>
         <p>End-to-end administration of:</p>
         <ul>
           <li><strong>SASE:</strong> Netskope</li>
           <li><strong>Proxy:</strong> Symantec Bluecoat</li>
-          <li><strong>Firewalls:</strong> Check Point, Palo Alto, Forti</li>
+          <li><strong>Firewalls:</strong> Check Point, Palo Alto, Fortinet</li>
           <li><strong>Load Balancer/DNS:</strong> F5 Big-IP (GTM/LTM)</li>
-          <li><strong>VPN-SSL:</strong> F5 Big-IP (APM)</li>
-          <li><strong>F5 Distributed Cloud & F5 Big-IP:</strong> load balancing and reverse proxy for SAS domains and its various agencies (SSPA). Custom iRules for traffic control, headers, redirects, and application security hardening. Postman for testing and F5 Big-IP / Distributed Cloud API integration within publication processes.</li>
+          <li><strong>SSL-VPN:</strong> F5 Big-IP (APM)</li>
+          <li><strong>F5 Distributed Cloud & F5 Big-IP:</strong> load balancing and reverse proxy for SAS domains and agencies. Custom iRules for traffic control, headers, redirections and application hardening. Postman for testing and API integration (F5 Big-IP / Distributed Cloud) in publishing workflows.</li>
           <li><strong>SIEM:</strong> Arcsight</li>
-          <li><strong>Network Intelligence:</strong> ALLOT</li>
-          <li>Bandwidth management, unified network access control, log management, and sandboxing.</li>
-          <li>Specialized support, vendor escalations, and technical report writing.</li>
+          <li><strong>Network intelligence:</strong> ALLOT</li>
+          <li>Bandwidth management, unified network access control, log management and sandboxing.</li>
+          <li>Specialized support and incident resolution, vendor escalations, technical reporting.</li>
         </ul>
       </article>
 
@@ -189,24 +216,21 @@
           </div>
           <img src="assets/admiral.png" alt="Admiral Seguros" class="job-logo">
         </div>
-
-        <p><strong>Achievements:</strong> Execution of Technical Security Reviews (TSR) on new projects deployed in AWS and on-prem, assessing infrastructure, applications, and APIs for robustness prior to production.</p>
-        <p>By analyzing new features, tools, and services, vulnerabilities and deviations were identified and remediations proposed, improving the organization’s overall security posture.</p>
-        <p>Development of tests and controlled pentesting on critical components to ensure adherence to internal standards and cloud best practices.</p>
-        <p>Proactive security monitoring across corporate systems (SIEM, firewalls, DNS, WAF, EDRs, Google Admin alerts, and Libra Esva email filtering), together with external threat intelligence review, enabling early threat detection and a significant reduction in unmanaged incidents.</p>
-
+        <p><strong>Achievements:</strong> Security technical reviews (TSR) on new projects deployed both in AWS and on-prem, assessing the robustness of infrastructures, applications and APIs prior to production.</p>
+        <p>Through the analysis of new features, tools and services, vulnerabilities and security deviations were identified, implementing mitigations that improved the organization’s overall security posture.</p>
+        <p>Development of testing and controlled pentesting on critical components, ensuring compliance with internal standards and cloud best practices.</p>
+        <p>Proactive security monitoring across all corporate systems (SIEM, firewalls, DNS, WAF, EDRs, Google Admin alerts and Libra Esva email filtering) plus review of external threat-intel feeds, enabling early threat detection and a significant reduction of unmanaged incidents.</p>
         <hr>
-
         <p><strong>Responsibilities:</strong></p>
         <ul>
-          <li>Security incident, threat, and vulnerability management.</li>
+          <li>Management of security incidents, threats and vulnerabilities.</li>
           <li>Event and vulnerability monitoring via SIEM, firewalls, IDS/IPS.</li>
-          <li>Ticket handling for security reviews of applications, services, and infrastructure in cloud and on-prem.</li>
-          <li>Environment and application risk assessment (TSR – Technical Security Reviews).</li>
+          <li>Ticket handling for security reviews of apps, services and infrastructure (cloud and on-prem).</li>
+          <li>Risk assessments of environments and applications (TSR — technical security reviews).</li>
           <li>Pentesting.</li>
-          <li>Use and administration of security and vulnerability management tools: WAF (Imperva), firewalls (Check Point), proxy (Netskope), SIEM (Elastic, Wazuh), IDS/IPS, DNS (Cisco Umbrella), VM (Nessus, Acunetix), EDR (Tanium, Harmony), Threat Intelligence (IntSights), email security (Libra Esva).</li>
-          <li>AWS security services: Amazon GuardDuty, Cloud9, Amazon Inspector, CloudTrail, CloudWatch.</li>
-          <li>Use and management of ticketing, project management and workflows with Jira.</li>
+          <li>Use and administration of security and VM tools: WAF (Imperva), firewalls (Check Point), proxy (Netskope), SIEM (Elastic, Wazuh), IDS/IPS, DNS (Cisco Umbrella), VM (Nessus, Acunetix), EDR (Tanium, Harmony), Threat Intel (IntSights), email security (Libra Esva).</li>
+          <li>AWS security tools: Amazon GuardDuty, Cloud9, Amazon Inspector, CloudTrail, CloudWatch.</li>
+          <li>Project/ticket management and workflows with Jira.</li>
         </ul>
       </article>
 
@@ -215,25 +239,22 @@
         <div class="job-head">
           <div>
             <div class="job-title">(September 2020 – November 2021) — PERITACIONES TECNOLÓGICAS E INFORMÁTICAS (Tecnoperitaciones)</div>
-            <div class="job-sub">Cybersecurity Team Coordination</div>
+            <div class="job-sub">Cybersecurity Team Lead</div>
           </div>
           <img src="assets/tecnoperitaciones.png" alt="Tecnoperitaciones" class="job-logo">
         </div>
-
-        <p><strong>Achievements:</strong> Consolidation of a fully operational ethical hacking and security audit area capable of comprehensively assessing web infrastructures, corporate networks, Active Directory, and cloud environments (AWS and Azure). Standardization of pentesting and audit methodologies tailored to each client, enabling the detection of critical vulnerabilities and a significant reduction in exposure risk.</p>
-        <p>Implementation of hardening measures and security plans that strengthened system protection and improved the overall security posture of audited organizations.</p>
-        <p>Execution of digital forensics and expert reports in cases of ransomware and data tampering/deletion, ensuring evidence integrity and chain of custody for legal use.</p>
-
+        <p><strong>Achievements:</strong> Consolidation of a fully operational ethical hacking and security auditing area, able to comprehensively assess web infrastructures, corporate networks, Active Directory and cloud (AWS & Azure). Standardization of pentesting and audit methodologies tailored to each client, enabling the discovery of critical vulnerabilities and a significant reduction of exposure risks.</p>
+        <p>Deployment of hardening measures that strengthened system protection and improved the overall security posture of audited organizations.</p>
+        <p>Forensic analysis and expert reports in cases of ransomware or data tampering/deletion, ensuring evidence integrity and traceability for legal use.</p>
         <hr>
-
         <p><strong>Responsibilities:</strong></p>
         <ul>
-          <li>Ethical Hacking / Pentesting. Web audits, Active Directory, Wi-Fi networks, cloud (AWS, Azure).</li>
-          <li>Hardening. Implementation of security improvements and solutions at end-client.</li>
-          <li>Forensics (ransomware, malware, data deletion/tampering).</li>
+          <li>Ethical Hacking / Pentesting. Web audits, Active Directory, Wi-Fi, cloud (AWS, Azure).</li>
+          <li>Hardening. Deployment of improvements and solutions for end customers.</li>
+          <li>Forensics (ransomware, malware, data deletion or manipulation).</li>
           <li>Cloning and analysis of digital devices before a notary (phones, tablets, HDDs, recorders, etc.).</li>
-          <li>Investigation and expert reports for legal procedures.</li>
-          <li>Authenticity analysis of conversations (WhatsApp, Telegram, Instagram, etc.) and digital files (images, video, audio, metadata, etc.).</li>
+          <li>Investigation and expert reports for legal proceedings.</li>
+          <li>Analysis and authenticity assessment of conversations (WhatsApp, Telegram, Instagram, etc.) and digital files (images, video, audio, metadata…).</li>
           <li>OSINT.</li>
         </ul>
       </article>
@@ -245,45 +266,42 @@
             <div class="job-title">(February 2008 – September 2020) — SITEL IBÉRICA TELESERVICES</div>
             <div class="job-sub">TECHNICAL SUPPORT department for Yacom and Orange</div>
           </div>
-        <img src="assets/sitel.jpg" alt="Sitel Ibérica" class="job-logo">
+          <img src="assets/sitel.jpg" alt="Sitel Ibérica" class="job-logo">
         </div>
-
-        <p><strong>Achievements:</strong> Optimization of support processes and resolution of technical incidents for Yacom and Orange services, improving response times and user satisfaction.</p>
-        <p>Contributed to documentation and standardization of technical procedures, facilitating the onboarding of new agents and reducing operational error rates.</p>
-        <p>Built a solid technical foundation in network diagnostics and customer support that later enabled specialization across various fields of cybersecurity and perimeter security.</p>
-
+        <p><strong>Achievements:</strong> Optimization of support and incident resolution processes for Yacom and Orange services, improving response times and user satisfaction.</p>
+        <p>Participation in documentation and standardization of technical procedures, facilitating onboarding of new agents and reducing operational errors.</p>
+        <p>Built a solid technical foundation in network troubleshooting and customer support, which became the basis for later specialization in several cybersecurity and perimeter-security domains.</p>
         <hr>
-
         <p><strong>Responsibilities:</strong></p>
         <ul>
-          <li>Back-office tasks, management, and resolution of technical incidents.</li>
+          <li>Back-office tasks and handling/resolution of technical incidents.</li>
         </ul>
       </article>
     </section>
 
     <!-- EDUCATION -->
-    <section id="formacion" data-section class="card">
+    <section id="education" data-section class="card">
       <h2>Education</h2>
       <ul>
-        <li><strong>Bachelor’s Degree in Computer Engineering — UOC</strong> (in progress; 10 subjects remaining). <strong>Average grade: 8.</strong></li>
-        <li><strong>Advanced Vocational Training (CFGS) in Network Systems Administration (ASIR).</strong></li>
+        <li><strong>Bachelor’s in Computer Engineering — UOC</strong> (in progress; 10 courses remaining). <strong>GPA: 8.</strong></li>
+        <li><strong>Higher Technician in Networked Computer Systems Administration (ASIR)</strong>.</li>
       </ul>
-      <h3 style="margin-top:18px;color:#0f2537">Complementary Training</h3>
+      <h3 style="margin-top:18px;color:#0f2537">Additional training</h3>
       <ul>
-        <li>Netskope Certified Cloud Security Administrator (NCCSA) - 2024</li>
-        <li>Introduction to Hacking (2024 - Hack4u.io Academy)</li>
-        <li>Introduction to Linux (2024 - Hack4u.io Academy)</li>
-        <li>CISCO CCNA Course (200 h) - Cloud Formación (2022)</li>
+        <li>Netskope’s Certified Cloud Security Administrator (NCCSA) — 2024</li>
+        <li>Introduction to Hacking (2024 — Hack4u.io)</li>
+        <li>Introduction to Linux (2024 — Hack4u.io)</li>
+        <li>CISCO CCNA Course (200 h) — Cloud Formación (2022)</li>
         <li>AWS Certified Cloud Practitioner (2022)</li>
-        <li>Introduction to Ethical Hacking - Mastermind (2021)</li>
-        <li>WiFi Network Hacking - Mastermind (2021)</li>
-        <li>IT Security in Business - Fundación Confemetal (2020)</li>
-        <li>Ongoing training in cybersecurity, systems, and cloud with 40+ certified courses (OpenWebinars), including: Linux/automation (Bash, Ansible, Docker, Kubernetes), offensive/defensive security, cloud/automation (AWS, CloudFormation, SPARQL, Python).</li>
+        <li>Introduction to Ethical Hacking — Mastermind (2021)</li>
+        <li>Wireless Network Hacking (Wi-Fi) — Mastermind (2021)</li>
+        <li>Information Security in the Company — Fundación Confemetal (2020)</li>
+        <li>Ongoing training in cybersecurity, systems and cloud with 40+ certified courses (OpenWebinars), including: Linux/automation (Bash, Ansible, Docker, Kubernetes), offensive/defensive, cloud/automation (AWS, CloudFormation, SPARQL, Python).</li>
       </ul>
     </section>
 
     <!-- TECHNICAL SKILLS -->
-    <section id="conocimientos" data-section class="card">
+    <section id="skills" data-section class="card">
       <h2>Technical Skills</h2>
       <div class="role"><strong>SIEM, monitoring & detection</strong></div>
       <p>
@@ -295,28 +313,23 @@
       <div class="role" style="margin-top:8px"><strong>Vulnerability Management & EDR</strong></div>
       <p>
         <span class="pill">OpenVAS/Greenbone (GVMD, GSA, OSPD)</span><span class="pill">CrowdStrike Falcon</span>
-        <span class="pill">Nessus</span><span class="pill">Acunetix</span>
-        <span class="pill">SecurityScoreCard</span>
-        <span class="pill">Panorays</span>
-        <span class="pill">Tanium</span>
-        <span class="pill">Harmony</span>
+        <span class="pill">Nessus</span><span class="pill">Acunetix</span><span class="pill">SecurityScoreCard</span>
+        <span class="pill">Panorays</span><span class="pill">Tanium</span><span class="pill">Harmony</span>
       </p>
 
-      <div class="role" style="margin-top:8px"><strong>Perimeter Security, SASE & firewalling</strong></div>
+      <div class="role" style="margin-top:8px"><strong>Perimeter security, SASE & firewalling</strong></div>
       <p>
         <span class="pill">Netskope (SASE/CASB/SWG/ZTNA)</span><span class="pill">Palo Alto</span>
         <span class="pill">Check Point</span><span class="pill">Fortinet</span>
         <span class="pill">Symantec Bluecoat</span>
         <span class="pill">F5 Big-IP (GTM/LTM/APM)</span>
-        <span class="pill">F5 Distributed Cloud</span>
-        <span class="pill">Allot</span>
+        <span class="pill">F5 Distributed Cloud</span><span class="pill">Allot</span>
       </p>
 
       <div class="role" style="margin-top:8px"><strong>WAF, IDS/IPS & advanced protection</strong></div>
       <p>
         <span class="pill">Imperva WAF</span><span class="pill">Snort</span><span class="pill">Suricata</span>
-        <span class="pill">Cisco Umbrella DNS</span>
-        <span class="pill">AWS Inspector</span>
+        <span class="pill">Cisco Umbrella DNS</span><span class="pill">AWS Inspector</span>
       </p>
 
       <div class="role" style="margin-top:8px"><strong>Automation, scripting & development</strong></div>
@@ -327,35 +340,40 @@
         <span class="pill">Reporting & Integration</span>
       </p>
 
-      <div class="role" style="margin-top:8px"><strong>Incident Management, ITSM & GRC</strong></div>
+      <div class="role" style="margin-top:8px"><strong>Incident management, ITSM & GRC</strong></div>
       <p>
         <span class="pill">Redmine</span><span class="pill">EasyVista</span><span class="pill">Jira</span>
         <span class="pill">ENS</span><span class="pill">ISO 27001</span><span class="pill">NIST</span><span class="pill">SLA</span>
       </p>
 
-      <div class="role" style="margin-top:8px"><strong>Audit, pentesting & forensics</strong></div>
+      <div class="role" style="margin-top:8px"><strong>Auditing, pentesting & forensics</strong></div>
       <p>
         <span class="pill">Network & AD audits</span><span class="pill">Forensics</span>
-        <span class="pill">OSINT</span>
-        <span class="pill">Expert reports</span>
+        <span class="pill">OSINT</span><span class="pill">Expert reports</span>
       </p>
     </section>
 
+    <!-- COURSES / CERTIFICATIONS -->
+    <section id="courses" data-section class="card">
+      <h2>Courses / Certifications</h2>
+      <div id="all-certs" class="certs-grid"></div>
+    </section>
+
     <!-- LANGUAGES -->
-    <section id="idiomas" data-section class="card">
+    <section id="languages" data-section class="card">
       <h2>Languages</h2>
       <ul>
-        <li><strong>English:</strong> B2 (UOC, official degree subjects).</li>
+        <li><strong>English:</strong> B2 (UOC, official degree courses).</li>
         <li><strong>Italian:</strong> B1 (intermediate).</li>
       </ul>
     </section>
 
     <!-- OTHER -->
-    <section id="otros" data-section class="card">
-      <h2>Other Information of Interest</h2>
+    <section id="other" data-section class="card">
+      <h2>Other information</h2>
       <ul>
         <li>Passionate about cybersecurity and CTFs (Hack The Box, TryHackMe, VulnHub, PortSwigger Labs, OverTheWire).</li>
-        <li>Strong teamwork skills.</li>
+        <li>Strong team player.</li>
         <li>High adaptability and learning capacity.</li>
         <li>Constant upskilling.</li>
         <li>Preference for remote work.</li>
@@ -363,13 +381,16 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contacto" data-section class="card">
+    <section id="contact" data-section class="card">
       <h2>Contact</h2>
 
       <div class="contact-item">
         <i class="fa-solid fa-envelope"></i>
         <b>Email:</b>
-        <a href="mailto:mfern019@gmail.com">mfern019@gmail.com</a>
+        <span id="emailText">mfern019@gmail.com</span>
+        <button class="btn copy" id="copyBtn" aria-label="Copy email">
+          <i class="fa-regular fa-copy"></i><span class="tip" id="copyTip">Copied</span>
+        </button>
       </div>
 
       <div class="contact-item">
@@ -383,28 +404,34 @@
         <b>Location:</b>
         Seville (Spain)
       </div>
-    </section>
 
+      <div class="contact-item">
+        <i class="fa-solid fa-id-card-clip"></i>
+        <b>vCard:</b>
+        <button class="btn" id="vcardBtn"><i class="fa-solid fa-download"></i> Download vCard</button>
+        <div id="qr" aria-label="vCard QR" style="margin-left:12px;"></div>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    © 2025 · Carmen Fernández Arrebola
-  </footer>
+  <footer>© 2025 · Carmen Fernández Arrebola</footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content" id="lightboxContent"></div>
+    <button class="close" id="lightboxClose">Close ✕</button>
+  </div>
 
   <script>
-    // Hash-based section nav with active link
+    // Section navigation by hash; active link; works without JS too
     document.addEventListener("DOMContentLoaded", () => {
       const sections = [...document.querySelectorAll("section[data-section]")];
-      const links = [...document.querySelectorAll("nav a[href^='#']")];
+      const links = [...document.querySelectorAll("nav a")];
 
       function showSection(id){
-        sections.forEach(s => {
-          if (s.id === id) s.removeAttribute("hidden");
-          else s.setAttribute("hidden", "");
-        });
+        sections.forEach(s => s.toggleAttribute("hidden", s.id !== id));
         links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
       }
-
       links.forEach(link => {
         link.addEventListener("click", (e) => {
           e.preventDefault();
@@ -413,41 +440,126 @@
           showSection(id);
         });
       });
-
-      const initial = (location.hash || "#perfil").slice(1);
+      const initial = (location.hash || "#profile").slice(1);
       showSection(initial);
-
       window.addEventListener("popstate", () => {
-        const id = (location.hash || "#perfil").slice(1);
+        const id = (location.hash || "#profile").slice(1);
         showSection(id);
       });
 
-      // Print ALL sections
-      const printBtn = document.getElementById("printBtn");
-      let prevHidden = null;
+      // Print all sections
+      document.getElementById("printBtn").addEventListener("click",()=>window.print());
 
-      function beforePrintAll(){
-        prevHidden = new Map();
-        sections.forEach(s => {
-          prevHidden.set(s.id, s.hasAttribute("hidden"));
-          s.removeAttribute("hidden");
-        });
-      }
-      function afterPrintRestore(){
-        if(!prevHidden) return;
-        sections.forEach(s => {
-          if (prevHidden.get(s.id)) s.setAttribute("hidden","");
-        });
-        prevHidden = null;
-      }
-
-      printBtn.addEventListener("click", () => {
-        beforePrintAll();
-        window.print();
-        setTimeout(afterPrintRestore, 0);
+      // Copy email
+      const copyBtn=document.getElementById("copyBtn"), tip=document.getElementById("copyTip");
+      copyBtn.addEventListener("click",async()=>{
+        await navigator.clipboard.writeText(document.getElementById("emailText").textContent.trim());
+        copyBtn.classList.add("copied");
+        setTimeout(()=>copyBtn.classList.remove("copied"),800);
       });
-      window.addEventListener("afterprint", afterPrintRestore);
+
+      // vCard + QR
+      const v = [
+        "BEGIN:VCARD","VERSION:3.0",
+        "N:Fernández Arrebola;Carmen;;;",
+        "FN:Carmen Fernández Arrebola",
+        "EMAIL;TYPE=INTERNET:mfern019@gmail.com",
+        "URL:https://www.linkedin.com/in/carmen-fernandez-763942167/",
+        "ADR;TYPE=HOME:;;Seville;;;Spain",
+        "END:VCARD"
+      ].join("\\n");
+      document.getElementById("vcardBtn").addEventListener("click",()=>{
+        const blob=new Blob([v],{type:"text/vcard"}); const url=URL.createObjectURL(blob);
+        const a=document.createElement("a"); a.href=url; a.download="Carmen-Fernandez-Arrebola.vcf"; a.click();
+        setTimeout(()=>URL.revokeObjectURL(url),1000);
+      });
+      if(window.QRCode) QRCode.toString(v,{type:"svg",margin:1,scale:4},(err,svg)=>{ if(!err) document.getElementById("qr").innerHTML=svg; });
+
+      /* ===== Certifications (single grid) ===== */
+      // Top (first)
+      const TOP_CERTS = [
+        "Introducción al hacking - Hack4u.png",
+        "Introducción a linux - Hack4u.png",
+        "Netskope - NCCSA.png",
+        "Curso CCNA - Cloud Formación TIC - SIN DNI.png",
+        "Confemetal cert.png"
+      ];
+      // OpenWebinars (after). Excludes Joomla.png and Windows Server 2019.png
+      const OW_CERTS = [
+        "Análisis de malware.png",
+        "Ansible.png",
+        "Aspectos legales del desarrollo web.png",
+        "Aumento del rendimiento en la ejecución de PHP con Varnish.png",
+        "Automatización de usuarios con bash cripting.png",
+        "AWS CloudFormation.png",
+        "Buenas prácticas en Phyton.png",
+        "Cómo montar un WebApp de Angular con Docker.png",
+        "Cómo usar Sparql para la gestión de datos.png",
+        "Conceptos Básicos PL SQL.png",
+        "Conectarse a una VPN de Cisco desde Docker.png",
+        "Creando GIT portable.png",
+        "Crear entorno de desarrollo docker con interfaz gráfica.png",
+        "Desarrollo rápido con Docker-Compose y Docker Swarm.png",
+        "Desplegar un Cluster Kubernetes en 5 minutos con K3S.png",
+        "Despliegue de aplicaciones PHP en Heroku.png",
+        "Hacking con buscadores Google, Bing y Shodan.png",
+        "Hacking Web.png",
+        "Herramientas de testing para un desarrollador Java.png",
+        "Implementar Management 3.0.png",
+        "Instalación de Mono en equipos de sobremesa Linux MacOS y Windows.png",
+        "Introducción a Docker.png",
+        "Introducción al Ethical Hacking.png",
+        "JavaScrip para principiantes.png",
+        "Kind - Kubernetes en Docker.png",
+        "Linux - Examen 101 de LPIC-1.png",
+        "Linux desde cero.png",
+        "LPIC Exámen 102 - Temas 105 y 106 Shell Scripting, Interfaces y Entornos.png",
+        "Machine Learning con librerías scikit.png",
+        "Manejando Hooks en WordPress.png",
+        "Mejorando la caché de Wordpress.png",
+        "Mono - Ejecutar un exe en cualquier sistema operativo.png",
+        "Nuevas mejoras de Xamarin Forms 4.0.png",
+        "OSINT - Técnicas de investigación e inteligencia en fuentes abiertas.png",
+        "Procesamiento del lenguaje natural con NLTK.png",
+        "SSH - Imprescindible en tiempos modernos.png",
+        "Técnicas de Investigación e inteligencia en fuentes abiertas.png",
+        "Triage informático.png",
+        "Vagrant para desarrolladores.png",
+        "Wordpress en un entorno de desarrollo local de forma profesional.png"
+      ];
+
+      const ALL_CERTS=[...TOP_CERTS, ...OW_CERTS];
+      const mount=document.getElementById("all-certs");
+
+      ALL_CERTS.forEach(name=>{
+        const src=encodeURI(`assets/certs/${name}`);
+        const fig=document.createElement("figure");
+        fig.className="cert";
+        fig.innerHTML=`
+          <h4>${name.replace(".png","")}</h4>
+          <img class="thumb" src="${src}" alt="${name}" loading="lazy" data-lightbox="img">
+        `;
+        mount.appendChild(fig);
+      });
+
+      // Lightbox
+      const lb=document.getElementById("lightbox");
+      const lbContent=document.getElementById("lightboxContent");
+      const lbClose=document.getElementById("lightboxClose");
+      document.body.addEventListener("click",(e)=>{
+        const img=e.target.closest('[data-lightbox="img"]');
+        if(img){
+          e.preventDefault();
+          lbContent.innerHTML=`<img src="${img.getAttribute('src')}" alt="">`;
+          lb.classList.add("open");
+        }
+      });
+      lb.addEventListener("click",(e)=>{ if(e.target===lb) lb.classList.remove("open"); });
+      lbClose.addEventListener("click",()=>lb.classList.remove("open"));
+      window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") lb.classList.remove("open"); });
     });
   </script>
 </body>
 </html>
+```
+
