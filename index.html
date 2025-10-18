@@ -281,6 +281,8 @@
     <!-- CURSOS / CERTIFICACIONES (solo imágenes) -->
     <section id="cursos" data-section class="card page-break">
       <h2>Cursos / Certificaciones</h2>
+      <div id="all-certs" class="certs-grid"></div>
+    </section>
 
       <!-- Destacadas (primero) -->
       <div id="top-certs" class="certs-grid" style="margin-bottom:18px;"></div>
@@ -401,7 +403,7 @@
       if(window.QRCode) QRCode.toString(v,{type:"svg",margin:1,scale:4},(err,svg)=>{ if(!err) document.getElementById("qr").innerHTML=svg; });
 
       /* ===== Certificaciones ===== */
-      // 1) Principales (arriba del todo)
+      // 1) Principales primero
       const TOP_CERTS = [
         "Introducción al hacking - Hack4u.png",
         "Introducción a linux - Hack4u.png",
@@ -409,7 +411,7 @@
         "Curso CCNA - Cloud Formación TIC - SIN DNI.png",
         "Confemetal cert.png"
       ];
-      // 2) OpenWebinars (el resto, al final) — sin "Joomla.png" ni "Windows Server 2019.png"
+      // 2) OpenWebinars después
       const OW_CERTS = [
         "Análisis de malware.png",
         "Ansible.png",
@@ -452,22 +454,20 @@
         "Vagrant para desarrolladores.png",
         "Wordpress en un entorno de desarrollo local de forma profesional.png"
       ];
-
-      function renderCerts(list, mountId){
-        const mount=document.getElementById(mountId);
-        list.forEach(name=>{
-          const src=`assets/certs/${name}`;
-          const fig=document.createElement("figure");
-          fig.className="cert";
-          fig.innerHTML=`
-            <h4>${name.replace(".png","")}</h4>
-            <img class="thumb" src="${src}" alt="${name}" loading="lazy" data-lightbox="img">
-          `;
-          mount.appendChild(fig);
-        });
-      }
-      renderCerts(TOP_CERTS, "top-certs");
-      renderCerts(OW_CERTS, "ow-certs");
+      
+      const ALL_CERTS = [...TOP_CERTS, ...OW_CERTS];
+      const mount = document.getElementById("all-certs");
+      
+      ALL_CERTS.forEach(name => {
+        const src = encodeURI(`assets/certs/${name}`);
+        const fig = document.createElement("figure");
+        fig.className = "cert";
+        fig.innerHTML = `
+          <h4>${name.replace(".png", "")}</h4>
+          <img class="thumb" src="${src}" alt="${name}" loading="lazy" data-lightbox="img">
+        `;
+        mount.appendChild(fig);
+      });
 
       /* ===== Lightbox (imágenes) ===== */
       const lb=document.getElementById("lightbox");
