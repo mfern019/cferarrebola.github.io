@@ -29,10 +29,15 @@
 
     /* NAV */
     nav{position:sticky;top:0;z-index:50;background:#0f2537f2;backdrop-filter:blur(2px);border-bottom:1px solid #0b1b28}
-    .navwrap{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center;padding:8px}
+    .navwrap{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center;padding:8px;position:relative}
     .navwrap a{color:#d9e6f0;padding:8px 12px;border-radius:10px;display:inline-flex;gap:8px;align-items:center}
     .navwrap a:hover{background:#102a3f}
     .navwrap a.active{background:#c9a227;color:#0f2537}
+
+    /* Botón idioma */
+    .lang-switch{position:absolute;right:0;top:8px}
+    .lang-switch a{display:inline-flex;align-items:center;gap:6px;background:#c9a227;color:#0f2537;padding:6px 10px;border-radius:8px;font-weight:600}
+    .lang-switch img{border-radius:2px;display:block}
 
     /* MAIN + SECTIONS */
     main{padding:18px 0}
@@ -65,6 +70,7 @@
     footer{padding:24px 18px;text-align:center;color:var(--muted)}
     @media (max-width:720px){
       .navwrap{justify-content:space-between}
+      .lang-switch{position:static;order:3}
     }
     @media print{
       nav,.toolbar,footer{display:none}
@@ -93,6 +99,13 @@
       <a href="#idiomas"><i class="fa-solid fa-language"></i>Idiomas</a>
       <a href="#otros"><i class="fa-solid fa-circle-info"></i>Otros</a>
       <a href="#contacto"><i class="fa-solid fa-paper-plane"></i>Contacto</a>
+
+      <!-- Botón idioma ES->EN -->
+      <div class="lang-switch">
+        <a href="en.html" title="English version">
+          <img src="https://flagcdn.com/w20/gb.png" alt="English" width="20" height="14"> EN
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -134,7 +147,7 @@
     <ul>
       <li>Implantación y configuración desde cero de la infraestructura central de gestión de vulnerabilidades, incluyendo sondas distribuidas (on-prem y cloud) y su integración con entornos corporativos de clientes.
       <li>Administración avanzada de OpenVAS/Greenbone (GVMD, GSA, OSPD): configuración de targets, políticas de escaneo, scheduling y resolución de incidencias de comunicación, feeds, certificados o rendimiento.
-      <li>Extracción y correlación de vulnerabilidades mediante APIs, desarrollando procesos que combinan datos obtenidos desde CrowdStrike y   OpenVAS para generar inventarios enriquecidos y priorizar riesgos según CVSS, contexto de activo y exposición real.
+      <li>Extracción y correlación de vulnerabilidades mediante APIs, desarrollando procesos que combinan datos obtenidos desde CrowdStrike y OpenVAS para generar inventarios enriquecidos y priorizar riesgos según CVSS, contexto de activo y exposición real.
       <li>Automatización de procesos en Python y Bash, desarrollando scripts para conexión API, descarga masiva de resultados, normalización de informes XML/CSV/JSON y generación automática de reportes técnicos y ejecutivos.
       <li>Integración bidireccional con sistemas de ticketing (Redmine) para registrar, asignar y cerrar vulnerabilidades de acuerdo con SLA, ENS e ISO 27001.
       <li>Análisis y priorización de vulnerabilidades por CVSS, criticidad de activo y exposición en Falcon, facilitando la gestión del riesgo.
@@ -408,7 +421,7 @@ Estandarización de metodologías de pentesting y auditoría adaptadas a cada cl
     // Navegación de secciones: mostrar/ocultar por hash, con enlace activo y fallback sin JS
     document.addEventListener("DOMContentLoaded", () => {
       const sections = [...document.querySelectorAll("section[data-section]")];
-      const links = [...document.querySelectorAll("nav a")];
+      const links = [...document.querySelectorAll("nav a[href^='#']")];
 
       function showSection(id){
         sections.forEach(s => {
