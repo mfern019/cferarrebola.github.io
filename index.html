@@ -18,18 +18,10 @@
   <script defer src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 
   <style>
-    /* ===== Tema (claro por defecto) ===== */
     :root{
       --bg:#0f2537; --ink:#1f2937; --muted:#667088;
       --paper:#ffffff; --line:#e5e7eb; --accent:#c9a227;
       --chip:#fff3cc; --chip-b:#ffe99a;
-    }
-    /* Oscuro sólo al activar el toggle */
-    [data-theme="dark"]{
-      --bg:#0b1e2d; --ink:#e7ecf3; --muted:#a7b0bd;
-      --paper:#0f1722; --line:#223244; --accent:#d4b139;
-      --chip:#2c2b1a; --chip-b:#544d1b;
-      background:#0a111a;
     }
 
     *{box-sizing:border-box}
@@ -47,7 +39,6 @@
 
     /* NAV */
     nav{position:sticky;top:0;z-index:50;background:#0f2537f2;backdrop-filter:blur(2px);border-bottom:1px solid #0b1b28}
-    [data-theme="dark"] nav{background:#0b1e2df2;border-color:#0b1e2d}
     .navwrap{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center;padding:8px}
     .navwrap a{color:#d9e6f0;padding:8px 12px;border-radius:10px;display:inline-flex;gap:8px;align-items:center}
     .navwrap a:hover{background:#102a3f}
@@ -60,7 +51,6 @@
     .btn:hover{background:rgba(0,0,0,.03)}
     .btn.accent{background:#c9a227;color:#0f2537;border-color:#c9a227}
     .btn img{display:block;border-radius:2px}
-    .btn.toggle::after{content:attr(data-label)}
 
     .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:26px;margin:26px auto}
     h2{margin:0 0 14px;color:var(--bg);font-size:1.25rem;border-left:6px solid var(--accent);padding-left:10px}
@@ -77,7 +67,7 @@
     .job-card ul{margin:8px 0 0;padding-left:18px}
     .job-card hr{border:none;border-top:1px dashed var(--line);margin:12px 0}
 
-    /* Mostrar/ocultar por hash (fallback sin JS = visible todo) */
+    /* Mostrar/ocultar con hash (fallback sin JS = visible todo) */
     section[data-section]{display:block}
     section[data-section][hidden]{display:none}
 
@@ -88,8 +78,6 @@
     .cert h4{margin:0 0 6px;font-size:1rem}
     .thumb{width:100%;border-radius:10px;display:block;transition:transform .2s, box-shadow .2s;cursor:zoom-in}
     .thumb:hover{transform:scale(1.03);box-shadow:0 8px 26px rgba(0,0,0,.18)}
-    .cert .actions{margin-top:6px;font-size:.95rem}
-    .cert .actions a{margin-right:10px}
 
     /* Lightbox */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
@@ -149,7 +137,6 @@
   <main class="container">
     <div class="toolbar">
       <button class="btn" id="printBtn" title="Guardar como PDF"><i class="fa-solid fa-print"></i> PDF</button>
-      <button class="btn toggle" id="themeBtn" data-label="Oscuro" title="Cambiar tema"><i class="fa-solid fa-moon"></i></button>
       <a class="btn accent" href="en.html" title="English version">
         <img src="https://flagcdn.com/w20/gb.png" alt="English" width="20" height="14"> EN
       </a>
@@ -294,8 +281,12 @@
     <!-- CURSOS / CERTIFICACIONES (solo imágenes) -->
     <section id="cursos" data-section class="card page-break">
       <h2>Cursos / Certificaciones</h2>
-      <p style="margin-top:-6px;color:var(--muted)">Haz click en cualquier tarjeta para <strong>verla en grande</strong>. También puedes “Abrir imagen” en nueva pestaña.</p>
-      <div id="other-certs" class="certs-grid"></div>
+
+      <!-- Destacadas (primero) -->
+      <div id="top-certs" class="certs-grid" style="margin-bottom:18px;"></div>
+
+      <!-- OpenWebinars (todas las demás) -->
+      <div id="ow-certs" class="certs-grid"></div>
     </section>
 
     <!-- IDIOMAS -->
@@ -384,19 +375,6 @@
       /* ===== Imprimir todo ===== */
       document.getElementById("printBtn").addEventListener("click",()=>window.print());
 
-      /* ===== Modo oscuro (botón + persistencia) ===== */
-      const themeBtn=document.getElementById("themeBtn");
-      const saved=localStorage.getItem("theme")||"light";
-      applyTheme(saved);
-      function applyTheme(t){
-        document.documentElement.setAttribute("data-theme", t==="dark"?"dark":"");
-        themeBtn.setAttribute("data-label", t==="dark"?"Claro":"Oscuro");
-      }
-      themeBtn.addEventListener("click",()=>{
-        const now=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
-        applyTheme(now); localStorage.setItem("theme",now);
-      });
-
       /* ===== Copiar email ===== */
       const copyBtn=document.getElementById("copyBtn"), tip=document.getElementById("copyTip");
       copyBtn.addEventListener("click",async()=>{
@@ -422,8 +400,17 @@
       });
       if(window.QRCode) QRCode.toString(v,{type:"svg",margin:1,scale:4},(err,svg)=>{ if(!err) document.getElementById("qr").innerHTML=svg; });
 
-      /* ===== Certificaciones (solo imágenes en assets/certs/) ===== */
-      const OTHER_CERTS = [
+      /* ===== Certificaciones ===== */
+      // 1) Principales (arriba del todo)
+      const TOP_CERTS = [
+        "Introducción al hacking - Hack4u.png",
+        "Introducción a linux - Hack4u.png",
+        "Netskope - NCCSA.png",
+        "Curso CCNA - Cloud Formación TIC - SIN DNI.png",
+        "Confemetal cert.png"
+      ];
+      // 2) OpenWebinars (el resto, al final) — sin "Joomla.png" ni "Windows Server 2019.png"
+      const OW_CERTS = [
         "Análisis de malware.png",
         "Ansible.png",
         "Aspectos legales del desarrollo web.png",
@@ -448,7 +435,6 @@
         "Introducción a Docker.png",
         "Introducción al Ethical Hacking.png",
         "JavaScrip para principiantes.png",
-        "Joomla.png",
         "Kind - Kubernetes en Docker.png",
         "Linux - Examen 101 de LPIC-1.png",
         "Linux desde cero.png",
@@ -467,20 +453,21 @@
         "Wordpress en un entorno de desarrollo local de forma profesional.png"
       ];
 
-      const otherWrap=document.getElementById("other-certs");
-      OTHER_CERTS.forEach(name=>{
-        const src=`assets/certs/${name}`;
-        const fig=document.createElement("figure");
-        fig.className="cert";
-        fig.innerHTML=`
-          <h4>${name.replace(".png","")}</h4>
-          <img class="thumb" src="${src}" alt="${name}" loading="lazy" data-lightbox="img">
-          <div class="actions">
-            <a href="#" data-open="${src}">Ver grande</a>
-            <a href="${src}" target="_blank" rel="noopener">Abrir imagen</a>
-          </div>`;
-        otherWrap.appendChild(fig);
-      });
+      function renderCerts(list, mountId){
+        const mount=document.getElementById(mountId);
+        list.forEach(name=>{
+          const src=`assets/certs/${name}`;
+          const fig=document.createElement("figure");
+          fig.className="cert";
+          fig.innerHTML=`
+            <h4>${name.replace(".png","")}</h4>
+            <img class="thumb" src="${src}" alt="${name}" loading="lazy" data-lightbox="img">
+          `;
+          mount.appendChild(fig);
+        });
+      }
+      renderCerts(TOP_CERTS, "top-certs");
+      renderCerts(OW_CERTS, "ow-certs");
 
       /* ===== Lightbox (imágenes) ===== */
       const lb=document.getElementById("lightbox");
@@ -489,15 +476,9 @@
 
       document.body.addEventListener("click",(e)=>{
         const img=e.target.closest('[data-lightbox="img"]');
-        const openLink=e.target.closest('[data-open]');
         if(img){
           e.preventDefault();
           const src=img.getAttribute('src');
-          lbContent.innerHTML=`<img src="${src}" alt="">`;
-          lb.classList.add("open");
-        }else if(openLink){
-          e.preventDefault();
-          const src=openLink.getAttribute('data-open');
           lbContent.innerHTML=`<img src="${src}" alt="">`;
           lb.classList.add("open");
         }
