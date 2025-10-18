@@ -6,11 +6,6 @@
   <title>Carmen Fernández Arrebola — CV</title>
   <meta name="description" content="Currículum de Carmen Fernández Arrebola — Gestión de vulnerabilidades, seguridad perimetral, automatización."/>
 
-  <!-- SEO idiomas -->
-  <link rel="canonical" href="/index.html">
-  <link rel="alternate" hreflang="es" href="/index.html">
-  <link rel="alternate" hreflang="en" href="/en.html">
-
   <!-- Iconos -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
@@ -21,21 +16,19 @@
     :root{
       --bg:#0f2537; --ink:#1f2937; --muted:#667088;
       --paper:#ffffff; --line:#e5e7eb; --accent:#c9a227;
-      --chip:#fff3cc; --chip-b:#ffe99a;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#f6f8fa;line-height:1.65;scroll-behavior:smooth}
     a{color:var(--accent);text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* PORTADA */
-    header.cover{background:var(--bg);color:#fff;padding:72px 18px 40px}
+    /* HEADER */
+    header{background:var(--bg);color:#fff;padding:56px 18px 28px}
     .container{max-width:1000px;margin:0 auto;padding:0 18px}
-    .hero h1{margin:0;font-size:2.4rem}
-    .tag{margin:10px 0 0;color:#cfe0ec}
-    .contact-inline{margin-top:8px}
-    .contact-inline a{color:#ffd978}
+    .hero h1{margin:0;font-size:2.15rem}
+    .tag{margin:8px 0 0;color:#cfe0ec}
+    .contact{margin-top:10px;color:#cfe0ec}
+    .contact a{color:#ffd978}
 
     /* NAV */
     nav{position:sticky;top:0;z-index:50;background:#0f2537f2;backdrop-filter:blur(2px);border-bottom:1px solid #0b1b28}
@@ -46,32 +39,33 @@
 
     /* MAIN + SECTIONS */
     main{padding:18px 0}
-    .toolbar{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
-    .btn{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
-    .btn:hover{background:rgba(0,0,0,.03)}
-    .btn.accent{background:#c9a227;color:#0f2537;border-color:#c9a227}
-    .btn img{display:block;border-radius:2px}
+    .toolbar{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+    .btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
+    .btn:hover{background:#fafafa}
 
     .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:26px;margin:26px auto}
     h2{margin:0 0 14px;color:var(--bg);font-size:1.25rem;border-left:6px solid var(--accent);padding-left:10px}
-    .pill{display:inline-block;border:1px solid var(--chip-b);border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:var(--chip);color:var(--bg);font-weight:500;transition:background .2s,transform .1s}
-    .pill:hover{background:var(--chip-b);transform:translateY(-1px)}
+    .item{padding:10px 0;border-bottom:1px dashed var(--line)}
+    .item:last-child{border-bottom:0}
+    ul.plain{list-style:none;padding:0;margin:8px 0 0}
+    ul.plain li{margin:6px 0}
+    .pill{display:inline-block;border:1px solid #ffe99a;border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;background:#fff3cc;color:#0f2537;font-weight:500;transition:background .2s,transform .1s}.pill:hover{background:#ffe99a;transform:translateY(-1px)}
 
-    /* Jobs */
+    /* Tarjetas individuales de experiencia */
     .job-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:18px 18px 14px;margin:18px 0}
     .job-head{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
     .job-title{font-weight:700}
-    .job-sub,.job-when{color:var(--muted)}
-    .job-when{white-space:nowrap}
+    .job-sub{color:var(--muted)}
+    .job-when{color:var(--muted);white-space:nowrap}
     .job-logo{height:64px;max-width:140px;object-fit:contain}
     .job-card ul{margin:8px 0 0;padding-left:18px}
     .job-card hr{border:none;border-top:1px dashed var(--line);margin:12px 0}
 
-    /* Mostrar/ocultar con hash (fallback sin JS = visible todo) */
+    /* Mostrar/ocultar con JS (sin JS se ven todas) */
     section[data-section]{display:block}
     section[data-section][hidden]{display:none}
 
-    /* Certs */
+    /* Certificaciones */
     .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
     .cert{border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:12px;transition:transform .15s}
     .cert:hover{transform:translateY(-2px)}
@@ -92,7 +86,7 @@
     .copy .tip{position:absolute;top:-30px;left:50%;transform:translateX(-50%);background:#000;color:#fff;font-size:.8rem;padding:4px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s}
     .copy.copied .tip{opacity:1}
 
-    /* Impresión */
+    /* Impresión (imprime TODO) */
     .page-break{break-before:page}
     footer{padding:24px 18px;text-align:center;color:var(--muted)}
 
@@ -104,18 +98,18 @@
       body{background:#fff}
       section[data-section]{display:block !important}
       [hidden]{display:block !important}
-      header.cover{page-break-after:always}
+      header{page-break-after:always}
       .page-break{break-before:page}
     }
   </style>
 </head>
 <body>
-  <!-- PORTADA -->
-  <header class="cover">
+  <!-- HEADER -->
+  <header>
     <div class="container hero">
       <h1>Carmen Fernández Arrebola</h1>
       <p class="tag">Ciberseguridad · Gestión de Vulnerabilidades · Seguridad Perimetral · Automatización</p>
-      <div class="contact-inline"><a href="https://www.linkedin.com/in/carmen-fernandez-763942167/" target="_blank" rel="noopener">LinkedIn</a></div>
+      <a href="https://www.linkedin.com/in/carmen-fernandez-763942167/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </header>
 
@@ -136,8 +130,8 @@
   <!-- MAIN -->
   <main class="container">
     <div class="toolbar">
-      <button class="btn" id="printBtn" title="Guardar como PDF"><i class="fa-solid fa-print"></i> PDF</button>
-      <a class="btn accent" href="en.html" title="English version">
+      <button class="btn" id="printBtn"><i class="fa-solid fa-print"></i> Imprimir / PDF</button>
+      <a class="btn" href="en.html" title="English version">
         <img src="https://flagcdn.com/w20/gb.png" alt="English" width="20" height="14"> EN
       </a>
     </div>
@@ -145,103 +139,166 @@
     <!-- PERFIL -->
     <section id="perfil" data-section class="card">
       <h2>Perfil profesional</h2>
-      <p>Especialista con más de 5 años de experiencia en gestión de vulnerabilidades en medianas y grandes empresas, desde la detección, análisis y triaje hasta la comunicación y seguimiento continuo de la remediación, eliminando falsos positivos y mejorando la trazabilidad de los procesos.</p>
+      <p>
+        Especialista con más de 5 años de experiencia en gestión de vulnerabilidades en medianas y grandes empresas, desde la detección, análisis y triaje hasta la comunicación y seguimiento continuo de la remediación, eliminando falsos positivos y mejorando la trazabilidad de los procesos. </p>
       <p>Experiencia en automatización de procesos para VM y alto conocimiento de marcos UNE-EN ISO/IEC 27001:2023 y ENS (categoría ALTA). Manejo profesional e instrumentación vía APIs de CrowdStrike Falcon, Netskope, Palo Alto, Check Point, F5 (Big-IP / Distributed Cloud) y Greenbone (OpenVAS) en entornos corporativos.</p>
     </section>
 
     <!-- VIDA LABORAL -->
-    <section id="experiencia" data-section class="card page-break">
+    <section id="experiencia" data-section class="card">
       <h2>Vida laboral</h2>
 
+      <!-- SERVINFORM -->
       <article class="job-card">
         <div class="job-head">
           <div>
             <div class="job-title">(Noviembre 2024 – Actualidad) - SERVINFORM S.A.</div>
             <div class="job-sub">Vulnerability Management. Gestión integral del ciclo de vida de vulnerabilidades en entornos corporativos, utilizando OpenVAS/Greenbone como herramienta principal.</div>
           </div>
-          <img src="assets/servinform.png" alt="Servinform" class="job-logo" loading="lazy" width="140" height="64">
+          <img src="assets/servinform.png" alt="Servinform" class="job-logo">
+          <div class="job-when"></div>
         </div>
         <p><strong>Objetivos conseguidos:</strong> Diseño, implantación y consolidación del sistema corporativo de gestión de vulnerabilidades, con infraestructura distribuida on-prem y cloud, automatización completa del ciclo y reducción &gt;70% en tiempos de detección, análisis y remediación. Integración ENS e ISO 27001 y reporting ejecutivo con trazabilidad total.</p>
         <hr>
         <p><strong>Labores:</strong></p>
         <ul>
-          <li>Implantación desde cero (sondas on-prem y cloud) e integración con entornos corporativos.</li>
-          <li>Administración avanzada de OpenVAS/Greenbone (GVMD, GSA, OSPD), políticas de escaneo y troubleshooting.</li>
-          <li>Correlación vía APIs (CrowdStrike + OpenVAS) y priorización por CVSS/activo/exposición.</li>
-          <li>Automatización (Python/Bash): descarga masiva, normalización (XML/CSV/JSON) y reporting.</li>
-          <li>Integración con Redmine (SLA, ENS, ISO 27001).</li>
-          <li>Informes técnicos y ejecutivos.</li>
+          <li>Implantación y configuración desde cero de la infraestructura central de gestión de vulnerabilidades, incluyendo sondas distribuidas (on-prem y cloud) y su integración con entornos corporativos de clientes.
+          <li>Administración avanzada de OpenVAS/Greenbone (GVMD, GSA, OSPD): configuración de targets, políticas de escaneo, scheduling y resolución de incidencias de comunicación, feeds, certificados o rendimiento.
+          <li>Extracción y correlación de vulnerabilidades mediante APIs, desarrollando procesos que combinan datos obtenidos desde CrowdStrike y OpenVAS para generar inventarios enriquecidos y priorizar riesgos según CVSS, contexto de activo y exposición real.
+          <li>Automatización de procesos en Python y Bash, desarrollando scripts para conexión API, descarga masiva de resultados, normalización de informes XML/CSV/JSON y generación automática de reportes técnicos y ejecutivos.
+          <li>Integración bidireccional con sistemas de ticketing (Redmine) para registrar, asignar y cerrar vulnerabilidades de acuerdo con SLA, ENS e ISO 27001.
+          <li>Análisis y priorización de vulnerabilidades por CVSS, criticidad de activo y exposición en Falcon, facilitando la gestión del riesgo.
+          <li>Troubleshooting avanzado de la plataforma: base de datos PostgreSQL, servicios gvmd/ospd, consumo de recursos en sondas y problemas de red/distribución.
+          <li>Elaboración de informes técnicos y ejecutivos, mejorando la trazabilidad y la comunicación entre equipos.
         </ul>
       </article>
 
+      <!-- WESTCON -->
       <article class="job-card">
         <div class="job-head">
           <div>
             <div class="job-title">(Abril 2023 – Noviembre 2024) — WESTCON EUROPE</div>
             <div class="job-sub">Analista de Seguridad Perimetral (Oficina técnica NIAE) - SSPA (SAS)</div>
           </div>
-          <img src="assets/westcom.png" alt="Westcon Europe" class="job-logo" loading="lazy" width="140" height="64">
+          <img src="assets/westcom.png" alt="Westcon Europe" class="job-logo">
         </div>
-        <p><strong>Objetivos conseguidos:</strong> Endurecimiento perimetral y balanceo en servicios críticos del SSPA con Check Point, Palo Alto, F5 Big-IP (LTM/GTM/APM), F5 Distributed Cloud, Bluecoat, Netskope y Arcsight. Migración masiva de publicaciones a F5 con iRules/políticas personalizadas.</p>
+        <p><strong>Objetivos conseguidos:</strong> Optimización de la seguridad perimetral y del balanceo de servicios críticos del SSPA mediante la administración avanzada de Check Point, Palo Alto, F5 Big IP (LTM/GTM/APM), F5 Distributed Cloud, Symantec (Bluecoat), Netskope y Arcsight.</p>
+        <p>Las optimizaciones aplicadas en políticas, BGP, PBFs, NATs y rutas mejoraron el rendimiento global y permitieron adaptar la infraestructura a las necesidades operativas del SAS, reforzando la disponibilidad y estabilidad de la red sanitaria andaluza.</p>
+        <p>Lideración del proyecto de migración masiva de las publicaciones del SAS a la nube de F5, llevada a cabo tras el fin de licencias de los proxies Symantec (Bluecoat).</p>
+        <p>Durante la transición se configuraron iRules y políticas personalizadas en F5 para resolver incidencias de visualización web, redirecciones HTTP/HTTPS, tratamiento de cabeceras y bloqueo de elementos en navegadores, garantizando la continuidad del servicio y la correcta visualización de los portales corporativos.</p>
+        <hr>
+        <p><strong>Labores:</strong></p>
+        <p>Administración integral de soluciones de:</p>
+        <ul>
+          <li><strong>SASE:</strong> Netskope </li>
+          <li><strong>Proxy:</strong> Symantec Bluecoat 
+          <li><strong>Firewalls:</strong> Check Point, Palo Alto, Forti
+          <li><strong>Balanceador/DNS:</strong> F5 Big-IP (GTM/LTM) 
+          <li><strong>VPN-SSL:</strong> F5 Big-IP (APM)</li>
+          <li><strong>F5 Distributed Cloud y F5 Big-IP: </strong> balanceo y publicación de servidores (reverse proxy) para los dominios del SAS y sus distintos organismos  (SSPA). Configuración y mantenimiento de iRules personalizadas para control de tráfico, cabeceras, redirecciones y refuerzo de seguridad de aplicaciones. Uso de Postman para pruebas e integración de APIs de F5 Big IP / Distributed Cloud en procesos de publicación de servicios.</li>
+          <li><strong>SIEM:</strong> Arcsight 
+          <li><strong>Inteligencia de red:</strong> ALLOT 
+          <li>Gestión de caudales, control de acceso unificado a la red, gestión de logs y sandboxing.</li>
+          <li>Tareas de soporte especializado y resolución de incidencias, escalados a fabricante.  Elaboración de informes técnicos</li>
+        </ul>
       </article>
 
+      <!-- ADMIRAL -->
       <article class="job-card">
         <div class="job-head">
           <div>
             <div class="job-title">(Noviembre 2021 – Abril 2023) — EUIGS (ADMIRAL SEGUROS)</div>
-            <div class="job-sub">SOC Analyst</div>
+            <div class="job-sub">SOC Analyst. Integrante del equipo de SOC</div>
           </div>
-          <img src="assets/admiral.png" alt="Admiral Seguros" class="job-logo" loading="lazy" width="140" height="64">
+          <img src="assets/admiral.png" alt="Admiral Seguros" class="job-logo">
         </div>
-        <p><strong>Objetivos conseguidos:</strong> TSR en AWS/on-prem, pentesting controlado y monitorización proactiva (SIEM, firewalls, DNS, WAF, EDRs, Google Admin, Libra Esva) y TI externa.</p>
+        <p><strong>Objetivos conseguidos:</strong> Ejecución de revisiones técnicas de seguridad (TSR) sobre nuevos proyectos desplegados tanto en la nube de AWS como en entornos on-prem, evaluando la robustez de infraestructuras, aplicaciones y APIs antes de su puesta en producción.
+        Mediante el análisis de nuevas funcionalidades, herramientas y servicios, se identificaron vulnerabilidades y desviaciones de seguridad, estableciendo medidas de mitigación que mejoraron la postura de seguridad global de la organización.</p>
+        <p>Desarrollo de pruebas de testeo y pentesting controlado sobre componentes críticos, asegurando el cumplimiento de estándares internos y de buenas prácticas cloud.</p>
+        <p>Gestión proactiva de la monitorización de seguridad en todos los sistemas corporativos, abarcando SIEM, firewalls, DNS, WAF, EDRs, alertas de Google Admin y filtrado de correo con Libra Esva, junto con la revisión de fuentes de threat intelligence externas, lo que permitió una detección temprana de amenazas y una reducción significativa de incidentes no gestionados.</p>
+        <hr>
+        <p><strong>Labores:</strong></p>
+        <ul>
+          <li>Gestión de incidentes de seguridad, amenazas y vulnerabilidades.
+          <li>Monitorización de eventos y vulnerabilidades mediante SIEM, firewalls, IDS/IPS.
+          <li>Gestión de tickets de revisión de seguridad de aplicaciones, servicios e infraestructura, tanto en cloud como física.
+          <li>Evaluación de riesgos de entornos y aplicaciones (TSR – technical security reviews). 
+          <li>Pentesting.
+          <li>Uso y administración de herramientas de seguridad y gestión de vulnerabilidades. WAF (Imperva), firewalls (Check Point), proxy (Netskope), SIEM (Elastic, Wazuh), IDS/IPS, DNS (Cisco Umbrella), Gestión de vulnerabilidades (Nessus, Acunetix), EDR (Tanium, Harmony), Threat Intelligence (IntSights), mail security (Libra Esva).
+          <li>Herramientas de seguridad AWS: Amazon GuardDuty, Cloud9, Amazon Inspector, CloudTrail, CloudWatch.
+          <li>Uso y gestión de herramienta de ticketing, gestión de proyectos y workfows con Jira.</li>
+        </ul>
       </article>
 
+      <!-- TECNOPERITACIONES -->
       <article class="job-card">
         <div class="job-head">
           <div>
             <div class="job-title">(Septiembre 2020 – Noviembre 2021) — PERITACIONES TECNOLÓGICAS E INFORMÁTICAS (Tecnoperitaciones)</div>
             <div class="job-sub">Coordinación del equipo de Ciberseguridad</div>
           </div>
-          <img src="assets/tecnoperitaciones.png" alt="Tecnoperitaciones" class="job-logo" loading="lazy" width="140" height="64">
+          <img src="assets/tecnoperitaciones.png" alt="Tecnoperitaciones" class="job-logo">
         </div>
-        <p><strong>Objetivos conseguidos:</strong> Área de hacking/auditoría; metodologías; endurecimiento; forense y pericial con cadena de custodia.</p>
+        <p><strong>Objetivos conseguidos:</strong> Consolidación de un área de hacking ético y auditorías de seguridad plenamente operativa, capaz de evaluar de forma integral infraestructuras web, redes corporativas, Active Directory y entornos cloud (AWS y Azure).
+        Estandarización de metodologías de pentesting y auditoría adaptadas a cada cliente, que permitieron detectar vulnerabilidades críticas y reducir significativamente los riesgos de exposición.</p>
+        <p>Implantación de medidas de securización y planes de endurecimiento que reforzaron la protección de sistemas y mejoraron la postura de seguridad global de las organizaciones auditadas.</p>
+        <p>Realización de análisis forenses y periciales digitales en casos de ransomware, manipulación o eliminación de datos, asegurando la integridad y trazabilidad de las evidencias para su uso judicial.</p>
+        <hr>
+        <p><strong>Labores:</strong></p>
+        <ul>
+          <li>Hacking Ético / Pentesting. Auditorías web, directorio activo, redes wifi, nube (AWS, Azure). 
+          <li>Securización. Implantación de mejoras y soluciones en cliente final. 
+          <li>Análisis forense (casos de ransomware, virus, eliminación o manipulación de información digital). 
+          <li>Clonación y análisis de dispositivos digitales ante notario (móviles, tablets, discos duros, grabadoras, etc). 
+          <li>Investigación y elaboración de informes periciales para procedimientos judiciales. 
+          <li>Análisis y acreditación de autenticidad de conversaciones (WhatsApp, Telegram, Instagram, etc.), archivos digitales (imágenes, vídeos, audio, metadatos, etc.).
+          <li>OSINT.
+        </ul>
       </article>
 
+      <!-- SITEL -->
       <article class="job-card">
         <div class="job-head">
           <div>
             <div class="job-title">(Febrero 2008 – Septiembre 2020) — SITEL IBÉRICA TELESERVICES</div>
-            <div class="job-sub">Soporte técnico (Yacom / Orange)</div>
+            <div class="job-sub">Departamento de SOPORTE TÉCNICO de Yacom y Orange</div>
           </div>
-          <img src="assets/sitel.jpg" alt="Sitel Ibérica" class="job-logo" loading="lazy" width="140" height="64">
+          <img src="assets/sitel.jpg" alt="Sitel Ibérica" class="job-logo">
         </div>
-        <p><strong>Labores:</strong> Backoffice y resolución de incidencias técnicas.</p>
+        <p><strong>Objetivos conseguidos:</strong> Optimización de los procesos de atención y resolución de incidencias técnicas en los servicios de Yacom y Orange, mejorando los tiempos de respuesta y la satisfacción de los usuarios.</p>
+        <p>Participación en la documentación y estandarización de procedimientos técnicos, que facilitaron la formación de nuevos agentes y redujeron la tasa de errores operativos.</p>
+        <p>Desarrollo de una base sólida técnica en diagnóstico de red y soporte al cliente, que sirvió de punto de partida para la posterior especialización en diferentes campos de ciberseguridad y seguridad perimetral.</p>
+        <hr>
+        <p><strong>Labores:</strong></p>
+        <ul>
+          <li>Realización de tareas de backoffice, gestión y resolución de incidencias técnicas.</li>
+        </ul>
       </article>
     </section>
 
     <!-- FORMACIÓN -->
-    <section id="formacion" data-section class="card page-break">
+    <section id="formacion" data-section class="card">
       <h2>Formación</h2>
       <ul>
         <li><strong>Grado en Ingeniería Informática - UOC</strong> (en curso; a falta de 10 asignaturas). <strong>Nota media: 8.</strong></li>
         <li><strong>CFGS Administración de Sistemas Informáticos en Red (ASIR)</strong>.</li>
       </ul>
-      <h3 style="margin-top:18px;color:var(--bg)">Formación complementaria</h3>
+      <h3 style="margin-top:18px;color:#0f2537">Formación complementaria</h3>
       <ul>
-        <li>Netskope’s Certified Cloud Security Administrator (NCCSA) - 2024</li>
-        <li>Introducción al hacking (2024 - Academia Hack4u.io)</li>
-        <li>Introducción a Linux (2024 - Academia Hack4u.io)</li>
-        <li>Curso CISCO CCNA (200 h) - Cloud Formación (2022)</li>
-        <li>AWS Certified Cloud Practitioner (2022)</li>
-        <li>Introducción al Hacking Ético - Mastermind (2021)</li>
-        <li>Hacking de Redes Inalámbricas (WiFi) - Mastermind (2021)</li>
-        <li>Seguridad Informática en la Empresa - Fundación Confemetal (2020)</li>
-        <li>Formación continua (40+ cursos en OpenWebinars): Linux/automatización (Bash, Ansible, Docker, Kubernetes), ofensiva/defensiva, cloud/automatización (AWS, CloudFormation, SPARQL, Python).</li>
+        <li>Netskope’s Certified Cloud Security Administrator (NCCSA) - 2024
+        <li>Introducción al hacking (2024 - Academia Hack4u.io)
+        <li>Introducción a Linux (2024 - Academia Hack4u.io)
+        <li>Curso CISCO CCNA (200 h) - Cloud Formación (2022)
+        <li>AWS Certified Cloud Practitioner (2022)
+        <li>Curso Introducción al Hacking Ético. Mastermind (2021)
+        <li>Curso Hacking de Redes Inalámbricas (WiFi). Mastermind (2021)
+        <li>Curso Seguridad Informática en la Empresa. Fundación Confemetal  (2020)
+        <li>Formación continua en ciberseguridad, sistemas y cloud con más de 40 cursos certificados (OpenWebinars), incluyendo temáticas como: Linux/automatización (Bash, Ansible, Docker, Kubernetes), ofensiva/defensiva, cloud/automatización (AWS, CloudFormation, SPARQL, Python).
       </ul>
     </section>
 
     <!-- CONOCIMIENTOS -->
-    <section id="conocimientos" data-section class="card page-break">
+    <section id="conocimientos" data-section class="card">
       <h2>Conocimientos técnicos</h2>
       <div class="role"><strong>SIEM, monitorización y detección</strong></div>
       <p>
@@ -249,54 +306,62 @@
         <span class="pill">Amazon GuardDuty</span><span class="pill">CloudWatch/CloudTrail</span>
         <span class="pill">Microsoft Sentinel (nociones)</span><span class="pill">Splunk (nociones)</span>
       </p>
+
       <div class="role" style="margin-top:8px"><strong>Gestión de vulnerabilidades y EDR</strong></div>
       <p>
-        <span class="pill">OpenVAS/Greenbone</span><span class="pill">CrowdStrike Falcon</span>
+        <span class="pill">OpenVAS/Greenbone (GVMD, GSA, OSPD)</span><span class="pill">CrowdStrike Falcon</span>
         <span class="pill">Nessus</span><span class="pill">Acunetix</span><span class="pill">SecurityScoreCard</span>
         <span class="pill">Panorays</span><span class="pill">Tanium</span><span class="pill">Harmony</span>
       </p>
+
       <div class="role" style="margin-top:8px"><strong>Seguridad perimetral, SASE y firewalling</strong></div>
       <p>
-        <span class="pill">Netskope</span><span class="pill">Palo Alto</span>
+        <span class="pill">Netskope (SASE/CASB/SWG/ZTNA)</span><span class="pill">Palo Alto</span>
         <span class="pill">Check Point</span><span class="pill">Fortinet</span>
-        <span class="pill">Symantec Bluecoat</span><span class="pill">F5 Big-IP</span>
+        <span class="pill">Symantec Bluecoat</span>
+        <span class="pill">F5 Big-IP (GTM/LTM/APM)</span>
         <span class="pill">F5 Distributed Cloud</span><span class="pill">Allot</span>
       </p>
+
       <div class="role" style="margin-top:8px"><strong>WAF, IDS/IPS y protección avanzada</strong></div>
-      <p><span class="pill">Imperva WAF</span><span class="pill">Snort</span><span class="pill">Suricata</span>
-         <span class="pill">Cisco Umbrella DNS</span><span class="pill">AWS Inspector</span></p>
+      <p>
+        <span class="pill">Imperva WAF</span><span class="pill">Snort</span><span class="pill">Suricata</span>
+        <span class="pill">Cisco Umbrella DNS</span><span class="pill">AWS Inspector</span>
+      </p>
+
       <div class="role" style="margin-top:8px"><strong>Automatización, scripting y desarrollo</strong></div>
       <p>
         <span class="pill">Python</span><span class="pill">Bash</span><span class="pill">PowerShell</span>
-        <span class="pill">REST APIs</span><span class="pill">JSON/CSV/XML</span>
-        <span class="pill">Workflows VM</span><span class="pill">Reporting & Integración</span>
+        <span class="pill">APIs REST (CrowdStrike, OpenVAS, Redmine, EasyVista)</span>
+        <span class="pill">JSON/CSV/XML</span><span class="pill">Workflows VM</span>
+        <span class="pill">Reporting & Integración</span>
       </p>
+
       <div class="role" style="margin-top:8px"><strong>Gestión de incidentes, ITSM y GRC</strong></div>
-      <p><span class="pill">Redmine</span><span class="pill">EasyVista</span><span class="pill">Jira</span><span class="pill">ENS</span><span class="pill">ISO 27001</span><span class="pill">NIST</span><span class="pill">SLA</span></p>
+      <p>
+        <span class="pill">Redmine</span><span class="pill">EasyVista</span><span class="pill">Jira</span>
+        <span class="pill">ENS</span><span class="pill">ISO 27001</span><span class="pill">NIST</span><span class="pill">SLA</span>
+      </p>
+
       <div class="role" style="margin-top:8px"><strong>Auditoría, pentesting y forense</strong></div>
-      <p><span class="pill">Auditorías redes & AD</span><span class="pill">Forensic</span>
-        <span class="pill">OSINT</span><span class="pill">Informes periciales</span></p>
+      <p>
+        <span class="pill">Auditorías redes & AD</span><span class="pill">Forensic</span>
+        <span class="pill">OSINT</span><span class="pill">Informes periciales</span>
+      </p>
     </section>
 
-    <!-- CURSOS / CERTIFICACIONES (solo imágenes) -->
-    <section id="cursos" data-section class="card page-break">
+    <!-- CURSOS / CERTIFICACIONES (solo imágenes, grid único) -->
+    <section id="cursos" data-section class="card">
       <h2>Cursos / Certificaciones</h2>
       <div id="all-certs" class="certs-grid"></div>
     </section>
 
-      <!-- Destacadas (primero) -->
-      <div id="top-certs" class="certs-grid" style="margin-bottom:18px;"></div>
-
-      <!-- OpenWebinars (todas las demás) -->
-      <div id="ow-certs" class="certs-grid"></div>
-    </section>
-
     <!-- IDIOMAS -->
-    <section id="idiomas" data-section class="card page-break">
+    <section id="idiomas" data-section class="card">
       <h2>Idiomas</h2>
       <ul>
-        <li><strong>Inglés:</strong> B2 (UOC, asignaturas oficiales del grado).</li>
-        <li><strong>Italiano:</strong> B1 (intermedio).</li>
+        <li><strong>Inglés:</strong> B2 (UOC, asignaturas oficiales del grado).
+        <li><strong>Italiano:</strong> B1 (intermedio).
       </ul>
     </section>
 
@@ -304,16 +369,16 @@
     <section id="otros" data-section class="card">
       <h2>Otros datos de interés</h2>
       <ul>
-        <li>Apasionada de la ciberseguridad y CTFs (Hack The Box, TryHackMe, VulnHub, PortSwigger Labs, OverTheWire).</li>
-        <li>Alta capacidad para trabajar en equipo.</li>
-        <li>Gran capacidad de adaptación y aprendizaje.</li>
-        <li>En constante formación.</li>
+        <li>Apasionada de la ciberseguridad y CTFs (Hack The Box, TryHackMe, VulnHub, PortSwigger Labs, OverTheWire).
+        <li>Alta capacidad para trabajar en equipo. </li>
+        <li>Gran capacidad de adaptación y aprendizaje. </li>
+        <li>En constante formación. </li>
         <li>Preferencia por trabajos en remoto.</li>
       </ul>
     </section>
 
     <!-- CONTACTO -->
-    <section id="contacto" data-section class="card page-break">
+    <section id="contacto" data-section class="card">
       <h2>Contacto</h2>
 
       <div class="contact-item">
@@ -328,7 +393,7 @@
       <div class="contact-item">
         <i class="fa-brands fa-linkedin" style="color:#0a66c2"></i>
         <b>LinkedIn:</b>
-        <a href="https://linkedin.com/in/carmen-fernández-763942167" target="_blank" rel="noopener">Perfil LinkedIn</a>
+        <a href="https://linkedin.com/in/carmen-fernández-763942167" target="_blank">Perfil LinkedIn</a>
       </div>
 
       <div class="contact-item">
@@ -355,37 +420,42 @@
   </div>
 
   <script>
+    // Navegación de secciones: mostrar/ocultar por hash, con enlace activo y fallback sin JS
     document.addEventListener("DOMContentLoaded", () => {
-      /* ===== Navegación por hash ===== */
-      const sections=[...document.querySelectorAll("section[data-section]")];
-      const links=[...document.querySelectorAll("nav a")];
+      const sections = [...document.querySelectorAll("section[data-section]")];
+      const links = [...document.querySelectorAll("nav a")];
+
       function showSection(id){
         sections.forEach(s => s.toggleAttribute("hidden", s.id !== id));
-        links.forEach(a => a.classList.toggle("active", a.getAttribute("href")==="#"+id));
+        links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
       }
-      links.forEach(link=>{
-        if (!link.getAttribute("href").startsWith("#")) return;
-        link.addEventListener("click",(e)=>{
+      links.forEach(link => {
+        link.addEventListener("click", (e) => {
           e.preventDefault();
-          const id=link.getAttribute("href").slice(1);
-          history.pushState(null,"","#"+id); showSection(id);
-        })
+          const id = link.getAttribute("href").slice(1);
+          history.pushState(null, "", "#" + id);
+          showSection(id);
+        });
       });
-      const initial=(location.hash||"#perfil").slice(1); showSection(initial);
-      window.addEventListener("popstate",()=>showSection((location.hash||"#perfil").slice(1)));
+      const initial = (location.hash || "#perfil").slice(1);
+      showSection(initial);
+      window.addEventListener("popstate", () => {
+        const id = (location.hash || "#perfil").slice(1);
+        showSection(id);
+      });
 
-      /* ===== Imprimir todo ===== */
+      // Imprimir todas las secciones
       document.getElementById("printBtn").addEventListener("click",()=>window.print());
 
-      /* ===== Copiar email ===== */
+      // Copiar email
       const copyBtn=document.getElementById("copyBtn"), tip=document.getElementById("copyTip");
       copyBtn.addEventListener("click",async()=>{
         await navigator.clipboard.writeText(document.getElementById("emailText").textContent.trim());
-        copyBtn.classList.add("copied"); tip.textContent="Copiado";
+        copyBtn.classList.add("copied");
         setTimeout(()=>copyBtn.classList.remove("copied"),800);
       });
 
-      /* ===== vCard + QR ===== */
+      // vCard + QR
       const v = [
         "BEGIN:VCARD","VERSION:3.0",
         "N:Fernández Arrebola;Carmen;;;",
@@ -394,7 +464,7 @@
         "URL:https://www.linkedin.com/in/carmen-fernandez-763942167/",
         "ADR;TYPE=HOME:;;Sevilla;;;España",
         "END:VCARD"
-      ].join("\n");
+      ].join("\\n");
       document.getElementById("vcardBtn").addEventListener("click",()=>{
         const blob=new Blob([v],{type:"text/vcard"}); const url=URL.createObjectURL(blob);
         const a=document.createElement("a"); a.href=url; a.download="Carmen-Fernandez-Arrebola.vcf"; a.click();
@@ -402,8 +472,8 @@
       });
       if(window.QRCode) QRCode.toString(v,{type:"svg",margin:1,scale:4},(err,svg)=>{ if(!err) document.getElementById("qr").innerHTML=svg; });
 
-      /* ===== Certificaciones ===== */
-      // 1) Principales primero
+      /* ===== Certificaciones (grid único) ===== */
+      // Principales (primero)
       const TOP_CERTS = [
         "Introducción al hacking - Hack4u.png",
         "Introducción a linux - Hack4u.png",
@@ -411,7 +481,7 @@
         "Curso CCNA - Cloud Formación TIC - SIN DNI.png",
         "Confemetal cert.png"
       ];
-      // 2) OpenWebinars después
+      // OpenWebinars (después). Sin Joomla.png y sin Windows Server 2019.png
       const OW_CERTS = [
         "Análisis de malware.png",
         "Ansible.png",
@@ -454,32 +524,30 @@
         "Vagrant para desarrolladores.png",
         "Wordpress en un entorno de desarrollo local de forma profesional.png"
       ];
-      
-      const ALL_CERTS = [...TOP_CERTS, ...OW_CERTS];
-      const mount = document.getElementById("all-certs");
-      
-      ALL_CERTS.forEach(name => {
-        const src = encodeURI(`assets/certs/${name}`);
-        const fig = document.createElement("figure");
-        fig.className = "cert";
-        fig.innerHTML = `
-          <h4>${name.replace(".png", "")}</h4>
+
+      const ALL_CERTS=[...TOP_CERTS, ...OW_CERTS];
+      const mount=document.getElementById("all-certs");
+
+      ALL_CERTS.forEach(name=>{
+        const src=encodeURI(`assets/certs/${name}`);
+        const fig=document.createElement("figure");
+        fig.className="cert";
+        fig.innerHTML=`
+          <h4>${name.replace(".png","")}</h4>
           <img class="thumb" src="${src}" alt="${name}" loading="lazy" data-lightbox="img">
         `;
         mount.appendChild(fig);
       });
 
-      /* ===== Lightbox (imágenes) ===== */
+      // Lightbox
       const lb=document.getElementById("lightbox");
       const lbContent=document.getElementById("lightboxContent");
       const lbClose=document.getElementById("lightboxClose");
-
       document.body.addEventListener("click",(e)=>{
         const img=e.target.closest('[data-lightbox="img"]');
         if(img){
           e.preventDefault();
-          const src=img.getAttribute('src');
-          lbContent.innerHTML=`<img src="${src}" alt="">`;
+          lbContent.innerHTML=`<img src="${img.getAttribute('src')}" alt="">`;
           lb.classList.add("open");
         }
       });
